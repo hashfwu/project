@@ -31,6 +31,10 @@ def get_connection():
 def home():
     return render_template('home.html')
 
+@app.route('/dona_recursos')
+def dona_recursos():
+    return render_template('/casos_de_uso/dona_recursos.html')
+
 @app.route('/query', methods=['GET', 'POST'])
 def query():
     mensaje = ""
