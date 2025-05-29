@@ -32,10 +32,9 @@
                         <select id="tipo-recurso" name="tipo_recurso" required>
                             <option value="">Seleccione un recurso...</option>
                             <option value="medicamento">Medicamento</option>
-                            <option value="viveres">Víveres</option>
+                            <option value="vivere">Víveres</option>
                             <option value="vehiculo">Vehículo</option>
                             <option value="herramienta">Herramienta</option>
-                            <option value="dinero">Dinero</option>
                         </select>
                     </div>
 
@@ -68,7 +67,7 @@
                     </div>
 
                     <div id="vivere-fields" class="hidden-fields">
-                        <h3>Viveres</h3>
+                        <h3>Detalles de Viveres</h3>
                         <div class="form-group">
                             <label for="unidad-medida-vivere">Unidad de medida:</label>
                             <input type="number" id="unidad-medida-vivere" name="unidad_medida_vivere">
@@ -92,35 +91,69 @@
                     </div>
 
                     <div id="vehiculo-fields" class="hidden-fields">
-                        <h3>Vehiculo</h3>
+                        <h3>Detalles de Vehiculo</h3>
                         <div class="form-group">
-                            <label for="monto-dinero">Tipo:</label>
-                            <input type="text" id="tipo-vehiculo" name="unidad_medida_vivere">
+                            <label for="placa-vehiculo">Placa:</label>
+                            <input type="text" id="placa-vehiculo" name="placa_vehiculo">
                         </div>
                         <div class="form-group">
-                            <label for="banco-origen">Modelo:</label>
-                            <input type="text" id="modelo-vehiculo" name="cantidad_unidad_vivere">
+                            <label for="tipo-vehiculo">Tipo:</label>
+                            <input type="text" id="tipo-vehiculo" name="tipo_vehiculo">
                         </div>
                         <div class="form-group">
-                            <label for="banco-origen">Año del modelo:</label>
-                            <input type="number" id="ano-modelo-vehiculo" name="num_unidades_vivere">
+                            <label for="modelo-vehiculo">Modelo:</label>
+                            <input type="text" id="modelo-vehiculo" name="modelo_vehiculo">
+                        </div>
+                        <div class="form-group">
+                            <label for="ano-modelo-vehiculo">Año del modelo:</label>
+                            <input type="number" id="ano-modelo-vehiculo" name="ano_modelo_vehiculo">
                         </div>
                         <div class="form-group">
                             <label for="color-vehiculo">Color:</label>
-                            <input type="text" id="color-vehiculo" name="categoria_vivere">
+                            <input type="text" id="color-vehiculo" name="color_vehiculo">
                         </div>
                     </div>
+
+                    <div id="herramienta-fields" class="hidden-fields">
+                        <h3>Detalles de Herramienta</h3>
+                        <div class="form-group">
+                            <label for="cantidad-herramienta">Cantidad:</label>
+                            <input type="number" id="cantidad-herramienta" name="cantidad_herramienta">
+                        </div>
+                        <div class="form-group">
+                            <label for="serie-herramienta">Serie:</label>
+                            <input type="text" id="serie-herramienta" name="serie_herramienta">
+                        </div>
+                        <div class="form-group">
+                            <label for="tipo-herramienta">Tipo:</label>
+                            <input type="text" id="tipo-herramienta" name="tipo_herramienta">
+                        </div>
+                    </div>
+
                     <div class="form-group">
+                        <label for="descripcion-recurso">Descripcion:</label>
+                        <textarea id="descripcion-recurso" name="descripcion_recurso" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="marca-recurso">Marca:</label>
+                        <input type="text" id="marca-recurso" name="marca_recurso">
+                    </div>
+                    <div class="form-group">
+                        <label for="estado-recurso">Estado:</label>
+                        <select id="estado-recurso" name="estado_recurso" required>
+                            <option value="">Seleccione un estado...</option>
+                            <option value="medicamento">Bueno</option>
+                            <option value="vivere">Malo</option>
+                            <option value="vehiculo">Regular</option>
+                        </select>
+                    </div>
+
+                    <div class="form_group">
                         <label for="metodo">Método de donación:</label>
                         <select id="metodo" name="metodo" required>
                             <option value="fisico">Entrega física</option>
                             <option value="virtual">Transferencia/depósito</option>
                         </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="comentarios">Comentarios (opcional):</label>
-                        <textarea id="comentarios" name="comentarios" rows="3"></textarea>
                     </div>
 
                     <button type="submit" class="btn-submit">Registrar Donación</button>
@@ -270,27 +303,35 @@
         document.addEventListener('DOMContentLoaded', function() {
             const tipoRecursoSelect = document.getElementById('tipo-recurso');
             const medicamentoFields = document.getElementById('medicamento-fields');
-            const dineroFields = document.getElementById('dinero-fields');
+            const vivereFields = document.getElementById('vivere-fields');
+            const vehiculoFields = document.getElementById('vehiculo-fields');
+            const herramientaFields = document.getElementById('herramienta-fields');
 
             function toggleFields() {
                 // Oculta todos los grupos de campos específicos primero
                 medicamentoFields.classList.add('hidden-fields');
-                dineroFields.classList.add('hidden-fields');
+                vivereFields.classList.add('hidden-fields');
+                vehiculoFields.classList.add('hidden-fields');
+                herramientaFields.classList.add('hidden-fields');
 
                 // Muestra los campos relevantes según la selección
                 const selectedValue = tipoRecursoSelect.value;
                 if (selectedValue === 'medicamento') {
                     medicamentoFields.classList.remove('hidden-fields');
-                } else if (selectedValue === 'dinero') {
-                    dineroFields.classList.remove('hidden-fields');
                 }
-                // Si hay más tipos de recursos, añade más 'else if' aquí
+                else if (selectedValue === 'vivere') {
+                    vivereFields.classList.remove('hidden-fields');
+                }
+                else if (selectedValue === 'vehiculo') {
+                    vehiculoFields.classList.remove('hidden-fields');
+                }
+                else if (selectedValue === 'herramienta') {
+                    herramientaFields.classList.remove('hidden-fields');
+                }
             }
 
-            // Llama a la función la primera vez para asegurar el estado inicial correcto
             toggleFields();
 
-            // Añade un event listener para cada vez que cambie la selección
             tipoRecursoSelect.addEventListener('change', toggleFields);
         });
     </script>
