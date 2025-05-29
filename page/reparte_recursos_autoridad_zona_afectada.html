@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reparte Recursos - Sistema contra Incendios</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #d9534f;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav {
+            background-color: #f8f9fa;
+            padding: 1rem;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: #d9534f;
+        }
+        main {
+            padding: 2rem;
+        }
+        section {
+            margin-bottom: 2rem;
+        }
+        h2 {
+            color: #d9534f;
+            border-bottom: 2px solid #d9534f;
+            padding-bottom: 0.5rem;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+        .user-type {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .use-case {
+            background-color: #e9ecef;
+            border-radius: 5px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Estilos específicos para la tabla de recursos */
+        .resource-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        .resource-table th, .resource-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .resource-table th {
+            background-color: #d9534f;
+            color: white;
+        }
+        .resource-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .resource-table tr:hover {
+            background-color: #ddd;
+        }
+        .btn {
+            padding: 6px 12px;
+            margin: 2px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-primary {
+            background-color: #d9534f;
+            color: white;
+        }
+        .btn-secondary {
+            background-color: #5bc0de;
+            color: white;
+        }
+        .btn:hover {
+            opacity: 0.8;
+        }
+        .actions-cell {
+            display: flex;
+            justify-content: space-around;
+        }
+        .filter-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        .filter-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .filter-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .filter-item label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        select, input {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Reparte Recursos - Sistema contra Incendios</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Recursos</a></li>
+            <li><a href="#">Brigadas</a></li>
+            <li><a href="#">Incendios Activos</a></li>
+            <li><a href="#">Reportes</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <section id="reparte-recursos">
+            <h2>Reparte Recursos</h2>
+            
+            <div class="use-case">
+                <p>Distribución eficiente de herramientas, equipos y suministros para combatir incendios.</p>
+                
+                <div class="filter-section">
+                    <h3>Filtros de Búsqueda</h3>
+                    <div class="filter-group">
+                        <div class="filter-item">
+                            <label for="tipo-recurso">Tipo de Recurso:</label>
+                            <select id="tipo-recurso">
+                                <option value="todos">Todos</option>
+                                <option value="medicamento">Medicamentos</option>
+                                <option value="viveres">Víveres</option>
+                                <option value="vehiculo">Vehículos</option>
+                                <option value="herramienta">Herramientas</option>
+                            </select>
+                        </div>
+                        <div class="filter-item">
+                            <label for="disponibilidad">Disponibilidad:</label>
+                            <select id="disponibilidad">
+                                <option value="todos">Todos</option>
+                                <option value="disponible">Disponible</option>
+                                <option value="agotado">Agotado</option>
+                            </select>
+                        </div>
+                        <div class="filter-item">
+                            <label for="estado">Estado:</label>
+                            <select id="estado">
+                                <option value="todos">Todos</option>
+                                <option value="bueno">Bueno</option>
+                                <option value="regular">Regular</option>
+                                <option value="malo">Malo</option>
+                            </select>
+                        </div>
+                        <div class="filter-item">
+                            <label for="busqueda">Buscar:</label>
+                            <input type="text" id="busqueda" placeholder="Nombre o descripción...">
+                        </div>
+                    </div>
+                </div>
+                
+                <table class="resource-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Disponibilidad</th>
+                            <th>Estado</th>
+                            <th>Ubicación</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Omeprazol 250mg</td>
+                            <td>Medicamento</td>
+                            <td>Disponible</td>
+                            <td>Bueno</td>
+                            <td>Almacén Central</td>
+                            <td class="actions-cell">
+                                <button class="btn btn-primary">Asignar</button>
+                                <button class="btn btn-secondary">Detalles</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Camioneta 4x4</td>
+                            <td>Vehículo</td>
+                            <td>Disponible</td>
+                            <td>Regular</td>
+                            <td>Base Norte</td>
+                            <td class="actions-cell">
+                                <button class="btn btn-primary">Asignar</button>
+                                <button class="btn btn-secondary">Detalles</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Motosierra Stihl MS 271</td>
+                            <td>Herramienta</td>
+                            <td>Disponible</td>
+                            <td>Bueno</td>
+                            <td>Brigada Este</td>
+                            <td class="actions-cell">
+                                <button class="btn btn-primary">Asignar</button>
+                                <button class="btn btn-secondary">Detalles</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Agua embotellada 500ml</td>
+                            <td>Víveres</td>
+                            <td>Agotado</td>
+                            <td>Bueno</td>
+                            <td>Almacén Sur</td>
+                            <td class="actions-cell">
+                                <button class="btn btn-primary">Asignar</button>
+                                <button class="btn btn-secondary">Detalles</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Kit primeros auxilios</td>
+                            <td>Medicamento</td>
+                            <td>Disponible</td>
+                            <td>Bueno</td>
+                            <td>Base Central</td>
+                            <td class="actions-cell">
+                                <button class="btn btn-primary">Asignar</button>
+                                <button class="btn btn-secondary">Detalles</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>Helicóptero Bambi Bucket</td>
+                            <td>Vehículo</td>
+                            <td>Disponible</td>
+                            <td>Bueno</td>
+                            <td>Aeropuerto LP</td>
+                            <td class="actions-cell">
+                                <button class="btn btn-primary">Asignar</button>
+                                <button class="btn btn-secondary">Detalles</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Paracetamol 500mg</td>
+                            <td>Medicamento</td>
+                            <td>Disponible</td>
+                            <td>Bueno</td>
+                            <td>Almacén Central</td>
+                            <td class="actions-cell">
+                                <button class="btn btn-primary">Asignar</button>
+                                <button class="btn btn-secondary">Detalles</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div style="margin-top: 20px; text-align: center;">
+                    <button class="btn btn-primary">Generar Reporte</button>
+                    <button class="btn btn-secondary">Solicitar Nuevos Recursos</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>Sistema de Organización contra Incendios - Bolivia &copy; 2025</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Fútbol DB</title>
+    <!-- Enlace al CSS compilado por Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-6">
+        <h1 class="text-3xl font-bold mb-6 text-center text-blue-700">Vistas</h1>
+
+        <!-- Sección Vista Palmarés -->
+        <div class="mb-8 bg-white p-4 rounded-lg shadow">
+            <h2 class="text-xl font-semibold mb-1 text-gray-700">Vista Trofeos Ganados por Club</h2>
+            <p class="text-sm text-gray-600 mb-4 italic">
+                Mostrar qué club ganó qué trofeo y en qué año, incluyendo el nombre del club y el nombre del trofeo.
+            </p>
+
+            {% if palmares_filas %}
+            <div class="overflow-x-auto rounded border border-gray-300 shadow-sm">
+                <table class="min-w-full divide-y-2 divide-gray-200">
+                    <thead class="ltr:text-left rtl:text-right bg-gray-50">
+                        <tr class="*:font-medium *:text-gray-900">
+                            {% for col in palmares_columnas %}
+                                <th class="px-3 py-2 whitespace-nowrap">{{ col }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 *:even:bg-gray-50">
+                        {% for fila in palmares_filas %}
+                        <tr class="*:text-gray-900 *:first:font-medium">
+                            {% for celda in fila %}
+                                <td class="px-3 py-2 whitespace-nowrap">{{ celda }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <p class="text-sm text-red-600">No se pudieron cargar los datos para la vista {{ nombre_vista_palmares }} o no hay datos.</p>
+            {% endif %}
+        </div>
+
+        <!-- Sección Vista Club/Estadio -->
+        <div class="bg-white p-4 rounded-lg shadow">
+            <h2 class="text-xl font-semibold mb-1 text-gray-700">Vista Información Principal de Clubes</h2>
+            <p class="text-sm text-gray-600 mb-4 italic">
+                Mostrar información clave de cada club: su nombre, el nombre de su estadio y el nombre de su presidente.
+            </p>
+
+            {% if club_estadio_filas %}
+            <div class="overflow-x-auto rounded border border-gray-300 shadow-sm">
+                <table class="min-w-full divide-y-2 divide-gray-200">
+                    <thead class="ltr:text-left rtl:text-right bg-gray-50">
+                        <tr class="*:font-medium *:text-gray-900">
+                            {% for col in club_estadio_columnas %}
+                                <th class="px-3 py-2 whitespace-nowrap">{{ col }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 *:even:bg-gray-50">
+                        {% for fila in club_estadio_filas %}
+                        <tr class="*:text-gray-900 *:first:font-medium">
+                            {% for celda in fila %}
+                                <td class="px-3 py-2 whitespace-nowrap">{{ celda }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <p class="text-sm text-red-600">No se pudieron cargar los datos para la vista {{ nombre_vista_club_estadio }} o no hay datos.</p>
+            {% endif %}
+        </div>
+
+    </div> <!-- Fin container -->
+
+</body>
+</html>

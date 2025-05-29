@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donación de Recursos - Sistema contra Incendios</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #d9534f;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav {
+            background-color: #f8f9fa;
+            padding: 1rem;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: #d9534f;
+        }
+        main {
+            padding: 2rem;
+        }
+        section {
+            margin-bottom: 2rem;
+        }
+        h2 {
+            color: #d9534f;
+            border-bottom: 2px solid #d9534f;
+            padding-bottom: 0.5rem;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+        .user-type {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .use-case {
+            background-color: #e9ecef;
+            border-radius: 5px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #d9534f;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .button-group {
+            display: flex;
+            gap: 5px;
+        }
+        button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-comprobante {
+            background-color: #5cb85c;
+            color: white;
+        }
+        .btn-detalle {
+            background-color: #5bc0de;
+            color: white;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .btn-submit {
+            background-color: #d9534f;
+            color: white;
+            padding: 10px 15px;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Donación de Recursos - Sistema contra Incendios</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Mis Donaciones</a></li>
+            <li><a href="#">Nueva Donación</a></li>
+            <li><a href="#">Recursos Necesitados</a></li>
+            <li><a href="#">Contacto</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <section id="nueva-donacion">
+            <h2>Registrar Nueva Donación</h2>
+            
+            <div class="use-case">
+                <form>
+                    <div class="form-group">
+                        <label for="tipo-recurso">Tipo de Recurso:</label>
+                        <select id="tipo-recurso" required>
+                            <option value="">Seleccione un recurso...</option>
+                            <option value="medicamento">Medicamento</option>
+                            <option value="viveres">Víveres</option>
+                            <option value="vehiculo">Vehículo</option>
+                            <option value="herramienta">Herramienta</option>
+                            <option value="dinero">Dinero</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="recurso">Recurso específico:</label>
+                        <select id="recurso" required>
+                            <option value="">Seleccione primero el tipo de recurso</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cantidad">Cantidad:</label>
+                        <input type="number" id="cantidad" min="1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="metodo">Método de donación:</label>
+                        <select id="metodo" required>
+                            <option value="fisico">Entrega física</option>
+                            <option value="virtual">Transferencia/depósito</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="comentarios">Comentarios (opcional):</label>
+                        <textarea id="comentarios" rows="3" style="width: 100%;"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">Registrar Donación</button>
+                </form>
+            </div>
+        </section>
+        
+        <section id="historial-donaciones">
+            <h2>Historial de Donaciones</h2>
+            
+            <div class="use-case">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Recurso</th>
+                            <th>Cantidad</th>
+                            <th>Método</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2025-05-15</td>
+                            <td>Paracetamol 500mg</td>
+                            <td>50 unidades</td>
+                            <td>Entrega física</td>
+                            <td>Recibido</td>
+                            <td class="button-group">
+                                <button class="btn-comprobante">Comprobante</button>
+                                <button class="btn-detalle">Detalle</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2025-04-28</td>
+                            <td>Agua embotellada 500ml</td>
+                            <td>200 unidades</td>
+                            <td>Entrega física</td>
+                            <td>Recibido</td>
+                            <td class="button-group">
+                                <button class="btn-comprobante">Comprobante</button>
+                                <button class="btn-detalle">Detalle</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2025-04-10</td>
+                            <td>Motosierra Stihl MS 271</td>
+                            <td>1 unidad</td>
+                            <td>Entrega física</td>
+                            <td>En uso</td>
+                            <td class="button-group">
+                                <button class="btn-comprobante">Comprobante</button>
+                                <button class="btn-detalle">Detalle</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2025-03-22</td>
+                            <td>Donación monetaria</td>
+                            <td>Bs. 1,500.00</td>
+                            <td>Transferencia</td>
+                            <td>Verificado</td>
+                            <td class="button-group">
+                                <button class="btn-comprobante">Comprobante</button>
+                                <button class="btn-detalle">Detalle</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2025-02-05</td>
+                            <td>Frijol negro seco 1kg</td>
+                            <td>30 kg</td>
+                            <td>Entrega física</td>
+                            <td>Distribuido</td>
+                            <td class="button-group">
+                                <button class="btn-comprobante">Comprobante</button>
+                                <button class="btn-detalle">Detalle</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <section id="recursos-necesitados">
+            <h2>Recursos Más Necesitados</h2>
+            
+            <div class="use-case">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Recurso</th>
+                            <th>Categoría</th>
+                            <th>Cantidad Necesaria</th>
+                            <th>Prioridad</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Crema para quemaduras</td>
+                            <td>Medicamento</td>
+                            <td>100 unidades</td>
+                            <td>Alta</td>
+                            <td><button class="btn-comprobante">Donar</button></td>
+                        </tr>
+                        <tr>
+                            <td>Manguera contra incendios</td>
+                            <td>Herramienta</td>
+                            <td>15 unidades</td>
+                            <td>Alta</td>
+                            <td><button class="btn-comprobante">Donar</button></td>
+                        </tr>
+                        <tr>
+                            <td>Agua embotellada 500ml</td>
+                            <td>Víveres</td>
+                            <td>500 unidades</td>
+                            <td>Media</td>
+                            <td><button class="btn-comprobante">Donar</button></td>
+                        </tr>
+                        <tr>
+                            <td>Radio portátil</td>
+                            <td>Herramienta</td>
+                            <td>10 unidades</td>
+                            <td>Alta</td>
+                            <td><button class="btn-comprobante">Donar</button></td>
+                        </tr>
+                        <tr>
+                            <td>Leche en polvo entera</td>
+                            <td>Víveres</td>
+                            <td>50 kg</td>
+                            <td>Media</td>
+                            <td><button class="btn-comprobante">Donar</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>Sistema de Donaciones para Organizaciones contra Incendios - Bolivia &copy; 2025</p>
+        <p>Contacto: donaciones@bomberosbolivia.bo | Teléfono: 800-DONACION</p>
+    </footer>
+</body>
+</html>

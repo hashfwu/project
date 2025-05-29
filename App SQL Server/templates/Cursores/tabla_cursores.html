@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Cambiar Cuotas</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='stylesIns.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='stylesTab.css') }}">
+</head>
+
+<body>
+
+  <div class="container">
+    <a href="/" class="btn-home">Atras</a>
+    <h2>Incrementar cuota de socios</h2>
+
+    <form method="POST" class="comic-form">
+      <div class="form-group">
+        <label>Portero (%)</label>
+        <input type="double" step="0.01" name="p_porcentaje" min="0" max="100" required>
+      </div>
+      <div class="form-group">
+        <label>Defensa (%)</label>
+        <input type="double" step="0.01" name="q_porcentaje" min="0" max="100" required>
+      </div>
+      <div class="form-group">
+        <label>Centrocampista (%)</label>
+        <input type="double" step="0.01" name="r_porcentaje" min="0" max="100" required>
+      </div>
+      <div class="form-group">
+        <label>Delantero (%)</label>
+        <input type="double" step="0.01" name="s_porcentaje" min="0" max="100" required>
+      </div>
+      <div class="form-group">
+        <label>Lateral (%)</label>
+        <input type="double" step="0.01" name="t_porcentaje" min="0" max="100" required>
+      </div>
+      <button type="submit" class="btn">Cambiar</button>
+    </form>
+
+    {% if mensaje %}
+    <p class="mensaje">{{ mensaje }}</p>
+    
+    <div class="container mt-5">
+      <h2 class="mb-4">Tabla Cuotas cambiadas</h2>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Num Socio</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Cuota Antigua</th>
+            <th>Cuota Nueva</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for s in socios %}
+          <tr>
+            <td>{{ s[0] }}</td>
+            <td>{{ s[1] }}</td>
+            <td>{{ s[2] }}</td>
+            <td>{{ s[3] }}</td>
+            <td>{{ s[4] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    {% endif %}
+    {% if error %}
+    <p class="error">Error: {{ error }}</p>
+    {% endif %}
+  </div>
+
+</body>
+
+</html>

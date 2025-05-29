@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Tabla de Control de Presupuesto</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='stylesTab.css') }}">
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+    <a href="/expo_triggers" class="btn-home">Atras</a>
+  <h2 class="mb-4">Tabla Control de Presupuesto</h2>
+  {% if error %}
+    <div class="alert alert-danger">Error: {{ error }}</div>
+  {% endif %}
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        {% for col in control[0].cursor_description %}
+          <th>{{ col[0] }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in control %}
+      <tr>
+        {% for item in row %}
+        <td>{{ item }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

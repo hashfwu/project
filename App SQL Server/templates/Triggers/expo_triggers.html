@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>App de Triggers</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="atras"><a href="/" class="btn-home">Atras</a></div>
+        <h2>Triggers en SQL Server</h2>
+        <div class="button-group">
+            <a href="/insertar_esponsor" class="btn">Insertar nuevo Esponsor</a>
+            <a href="/eliminar_esponsor" class="btn">Eliminar Esponsor existente</a>
+            <a href="/insertar_socio" class="btn">Insertar nuevo Socio</a>
+            <a href="/tabla_clubes" class="btn2">Mostrar tabla de Clubes</a>
+            <a href="/tabla_esponsor" class="btn2">Mostrar tabla de Esponsors</a>
+            <a href="/tabla_socios" class="btn2">Mostrar tabla de Socios</a>
+            <a href="/tabla_control" class="btn2">Mostrar tabla de Control de Presupuesto</a>
+        </div>
+    </div>
+</body>
+</html>
