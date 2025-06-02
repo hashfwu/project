@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import pyodbc
-from app.config import DB_CONFIG
+from config import DB_CONFIG
 
 app = Flask(__name__)
 
@@ -24,4 +24,5 @@ def get_connection():
         f"PWD={DB_CONFIG['password']};"
         f"TrustServerCertificate={DB_CONFIG['trust_server_certificate']};"
     )
+    print(DB_CONFIG)
     return conn

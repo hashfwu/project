@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from app.database.connection import get_connection
+from database.connection import get_connection
 
 afectado_bp = Blueprint('afectado', __name__)
 
