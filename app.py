@@ -8,6 +8,12 @@ app = Flask(__name__)
 app.register_blueprint(query_bp, url_prefix='/')
 app.register_blueprint(afectado_bp, url_prefix='/afectado')
 
+
+@app.route('/home')
+def admin():
+    return render_template('base/page/home.html')
+
+
 @app.route('/')
 def home():
     return render_template('home.html')

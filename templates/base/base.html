@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% include 'base/components/head.html' %}
+</head>
+<body>
+    {% include 'base/components/navbar.html' %}
+    
+    <main class="container">
+        {% include 'base/components/messages.html' %}
+        {% block content %}{% endblock %}
+    </main>
+    
+    {% include 'base/components/footer.html' %}
+    {% block scripts %}{% endblock %}
+</body>
+</html>
