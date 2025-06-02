@@ -1,28 +1,40 @@
-<header class="bg-danger text-white py-5">
-<div class="container py-4">
-  <div class="text-center">
-    <h1 class="display-4 fw-bold mb-3">Sistema de Gestión de Organizaciones Voluntarias contra Incendios</h1>
-    <p class="lead fs-3">Plataforma unificada para coordinar esfuerzos, recursos y respuesta ante incendios forestales en Bolivia</p>
-  </div>
-</div>
-</header>
-<nav class="navbar">
-    <div class="navbar-brand">
-        <a href="{{ url_for('home') }}">Mi App</a>
-    </div>
-    
-    <div class="navbar-menu">
-        <a href="{{ url_for('home') }}" class="navbar-item">Inicio</a>
-        
-        {% if current_page == 'about' %}
-            <a href="{{ url_for('home') }}" class="navbar-item active">Acerca de</a>
-        {% else %}
-            <a href="{{ url_for('home') }}" class="navbar-item">Acerca de</a>
-        {% endif %}
-        
-        {# Puedes pasar variables para mostrar/ocultar elementos #}
-        {% if show_admin_links %}
-            <a href="{{ url_for('home') }}" class="navbar-item">Admin</a>
-        {% endif %}
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{{ url_for('home') }}">Mi App</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                {% set nav_items = NAVBARS[secction] %}
+                {% if nav_items['items_exists'] %}
+                    {% set items = nav_items['items'] %}
+                    {% for key, item in items.items() %}
+                        <li class="nav-item {% if item['subitems_exist'] %}dropdown{% endif %}">
+                            {% if item['subitems_exist'] %}
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown{{ loop.index }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ item['title'] }}
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown{{ loop.index }}">
+                                    {% for subkey, subitem in item['subitems'].items() %}
+                                        <li>
+                                            <a class="dropdown-item" href="{{ url_for(subitem['url']) }}">
+                                                {{ subitem['title'] }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <a class="nav-link" href="{{ url_for(item['url']) }}">
+                                    {{ item['title'] }}
+                                </a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
     </div>
 </nav>
