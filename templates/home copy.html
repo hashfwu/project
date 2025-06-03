@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Gestión de Organizaciones Voluntarias contra Incendios - Bolivia</title>
+  <!-- Bootstrap CSS -->
+  <link href="static/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Header -->
+  <header class="bg-danger text-white py-5">
+    <div class="container py-4">
+      <div class="text-center">
+        <h1 class="display-4 fw-bold mb-3">Sistema de Gestión de Organizaciones Voluntarias contra Incendios</h1>
+        <p class="lead fs-3">Plataforma unificada para coordinar esfuerzos, recursos y respuesta ante incendios forestales en Bolivia</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="bg-dark text-white py-5">
+    <div class="container py-4">
+      <div class="text-center">
+        <h2 class="display-5 fw-bold mb-4">Protegiendo los bosques y comunidades de Bolivia</h2>
+        <p class="lead mb-5">Una solución integral para la prevención, monitoreo y respuesta coordinada ante incendios forestales</p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+          <a href="#login" class="btn btn-danger btn-lg text-white"><i class="fas fa-sign-in-alt me-2"></i> Acceso a la plataforma</a>
+          <a href="#register" class="btn btn-outline-light btn-lg"><i class="fas fa-user-plus me-2"></i> Registro de organizaciones</a>
+          <a href="#donate" class="btn btn-outline-light btn-lg"><i class="fas fa-hand-holding-heart me-2"></i> Donar recursos</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="container my-5">
+    <!-- Situación actual -->
+    <section class="mb-5">
+      <h2 class="text-danger border-bottom border-danger pb-2 mb-4">Situación actual</h2>
+      <p class="mb-4">Bolivia enfrenta cada año una temporada crítica de incendios forestales que afectan a nuestros ecosistemas, biodiversidad y comunidades. Este sistema centraliza la información y coordina la respuesta entre todas las partes involucradas.</p>
+      
+      <div class="row g-4">
+        <div class="col-md-3 col-sm-6">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+              <i class="fas fa-fire text-danger fs-1 mb-3"></i>
+              <h3 class="text-danger">47</h3>
+              <p class="mb-0">Incendios activos en este momento</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+              <i class="fas fa-map-marked-alt text-danger fs-1 mb-3"></i>
+              <h3 class="text-danger">7</h3>
+              <p class="mb-0">Departamentos afectados</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+              <i class="fas fa-tree text-danger fs-1 mb-3"></i>
+              <h3 class="text-danger">12,450 ha</h3>
+              <p class="mb-0">Hectáreas afectadas (últimos 7 días)</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+              <i class="fas fa-users text-danger fs-1 mb-3"></i>
+              <h3 class="text-danger">1,240</h3>
+              <p class="mb-0">Brigadistas desplegados</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Funcionalidades clave -->
+    <section class="mb-5">
+      <h2 class="text-danger border-bottom border-danger pb-2 mb-4">Nuestras funcionalidades clave</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm border-top border-danger border-3">
+            <div class="card-body">
+              <i class="fas fa-fire-extinguisher text-danger fs-3 mb-3"></i>
+              <h3>Coordinación en tiempo real</h3>
+              <p>Plataforma centralizada para coordinar equipos, recursos y respuesta ante emergencias entre todas las organizaciones involucradas.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm border-top border-danger border-3">
+            <div class="card-body">
+              <i class="fas fa-map text-danger fs-3 mb-3"></i>
+              <h3>Monitoreo georreferenciado</h3>
+              <p>Sistema de mapeo interactivo que muestra incendios activos, recursos desplegados y zonas de riesgo en tiempo real.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm border-top border-danger border-3">
+            <div class="card-body">
+              <i class="fas fa-tasks text-danger fs-3 mb-3"></i>
+              <h3>Gestión de recursos</h3>
+              <p>Optimización del despliegue de equipos, vehículos y suministros según necesidades específicas de cada incidente.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm border-top border-danger border-3">
+            <div class="card-body">
+              <i class="fas fa-chart-line text-danger fs-3 mb-3"></i>
+              <h3>Análisis de datos</h3>
+              <p>Reportes automatizados y dashboards para toma de decisiones basada en datos históricos y en tiempo real.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm border-top border-danger border-3">
+            <div class="card-body">
+              <i class="fas fa-users-cog text-danger fs-3 mb-3"></i>
+              <h3>Gestión de voluntarios</h3>
+              <p>Registro, capacitación y coordinación de brigadistas y voluntarios con habilidades específicas.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm border-top border-danger border-3">
+            <div class="card-body">
+              <i class="fas fa-hands-helping text-danger fs-3 mb-3"></i>
+              <h3>Canal de donaciones</h3>
+              <p>Sistema transparente para recibir y gestionar donaciones económicas y en especie para afectados y equipos de respuesta.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mapa interactivo -->
+    <section class="mb-5">
+      <h2 class="text-danger border-bottom border-danger pb-2 mb-4">Mapa interactivo de incendios</h2>
+      <p class="mb-4">Visualice en tiempo real los focos de calor, incendios activos y recursos desplegados en todo el territorio boliviano.</p>
+      <div class="bg-light rounded p-5 mb-4 text-center">
+        <p class="mb-0">[Mapa interactivo con capas de incendios activos, recursos y zonas de riesgo]</p>
+      </div>
+      <div class="d-flex flex-wrap justify-content-center gap-3">
+        <a href="#" class="btn btn-danger"><i class="fas fa-map me-2"></i> Ver mapa completo</a>
+        <a href="#" class="btn btn-outline-danger"><i class="fas fa-download me-2"></i> Descargar reporte</a>
+      </div>
+    </section>
+
+    <!-- Trabajando juntos -->
+    <section class="mb-5">
+      <h2 class="text-danger border-bottom border-danger pb-2 mb-4">Trabajando juntos contra los incendios</h2>
+      <p class="mb-4">Esta plataforma está diseñada para servir a todos los participantes en la lucha contra los incendios forestales:</p>
+      
+      <div class="bg-light p-4 rounded">
+        <div class="row g-4">
+          <div class="col-md-3 col-sm-6">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body text-center">
+                <i class="fas fa-building text-danger fs-3 mb-3"></i>
+                <h3>Organizaciones contra incendios</h3>
+                <p class="mb-0">Coordine sus equipos, recursos y comunicaciones desde una plataforma centralizada.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body text-center">
+                <i class="fas fa-user-tie text-danger fs-3 mb-3"></i>
+                <h3>Autoridades responsables</h3>
+                <p class="mb-0">Tome decisiones informadas con datos en tiempo real y herramientas de análisis.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body text-center">
+                <i class="fas fa-firefighter text-danger fs-3 mb-3"></i>
+                <h3>Bomberos profesionales</h3>
+                <p class="mb-0">Acceda a información crítica y coordine operaciones con otros equipos.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body text-center">
+                <i class="fas fa-hands-helping text-danger fs-3 mb-3"></i>
+                <h3>Bomberos voluntarios</h3>
+                <p class="mb-0">Regístrese, reciba capacitación y participe en operaciones según sus habilidades.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body text-center">
+                <i class="fas fa-hand-holding-usd text-danger fs-3 mb-3"></i>
+                <h3>Donantes</h3>
+                <p class="mb-0">Contribuya de manera transparente y conozca el impacto de su ayuda.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body text-center">
+                <i class="fas fa-map-marked-alt text-danger fs-3 mb-3"></i>
+                <h3>Autoridades locales</h3>
+                <p class="mb-0">Reporte situaciones y solicite recursos específicos para su zona.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body text-center">
+                <i class="fas fa-home text-danger fs-3 mb-3"></i>
+                <h3>Afectados</h3>
+                <p class="mb-0">Encuentre ayuda, reporte daños y acceda a recursos de recuperación.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Casos de uso -->
+    <section class="mb-5">
+      <h2 class="text-danger border-bottom border-danger pb-2 mb-4">Casos de uso principales</h2>
+      <div class="row g-4">
+        <div class="col-md-3 col-sm-6">
+          <div class="card h-100 shadow-sm border-top border-danger border-3">
+            <div class="card-body">
+              <i class="fas fa-user-shield text-danger fs-3 mb-3"></i>
+              <h3>Control de usuarios</h3>
+              <p>Sistema de roles y permisos para garantizar acceso seguro y apropiado a las funcionalidades según el perfil de cada usuario.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="card h-100 shadow-sm border-top border-danger border-3">
+            <div class="card-body">
+              <i class="fas fa-truck-moving text-danger fs-3 mb-3"></i>
+              <h3>Distribución de recursos</h3>
+              <p>Asignación óptima de equipos, suministros y personal según gravedad y ubicación de cada incidente.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="card h-100 shadow-sm border-top border-danger border-3">
+            <div class="card-body">
+              <i class="fas fa-project-diagram text-danger fs-3 mb-3"></i>
+              <h3>Planificación de respuesta</h3>
+              <p>Herramientas colaborativas para diseñar estrategias de intervención considerando todos los factores relevantes.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="card h-100 shadow-sm border-top border-danger border-3">
+            <div class="card-body">
+              <i class="fas fa-fire-extinguisher text-danger fs-3 mb-3"></i>
+              <h3>Gestión de incidentes</h3>
+              <p>Seguimiento completo de cada incendio desde su detección hasta su resolución final.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="card h-100 shadow-sm border-top border-danger border-3">
+            <div class="card-body">
+              <i class="fas fa-graduation-cap text-danger fs-3 mb-3"></i>
+              <h3>Capacitación</h3>
+              <p>Plataforma de entrenamiento para voluntarios con cursos básicos y especializados.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="card h-100 shadow-sm border-top border-danger border-3">
+            <div class="card-body">
+              <i class="fas fa-donate text-danger fs-3 mb-3"></i>
+              <h3>Donaciones</h3>
+              <p>Sistema transparente para recibir y asignar recursos económicos y materiales.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="card h-100 shadow-sm border-top border-danger border-3">
+            <div class="card-body">
+              <i class="fas fa-chart-bar text-danger fs-3 mb-3"></i>
+              <h3>Evaluación de daños</h3>
+              <p>Documentación y cuantificación de áreas afectadas, pérdidas económicas y ecológicas.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="card h-100 shadow-sm border-top border-danger border-3">
+            <div class="card-body">
+              <i class="fas fa-file-alt text-danger fs-3 mb-3"></i>
+              <h3>Reportes de pérdidas</h3>
+              <p>Generación de informes técnicos para afectados, autoridades y organismos internacionales.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonios -->
+    <section class="mb-5">
+      <h2 class="text-danger border-bottom border-danger pb-2 mb-4">Testimonios</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body position-relative">
+              <p class="mb-4">"Esta plataforma ha revolucionado nuestra capacidad de respuesta. Ahora coordinamos con otras organizaciones en tiempo real y optimizamos nuestros recursos limitados."</p>
+              <div class="d-flex align-items-center">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Juan Pérez" class="rounded-circle me-3" width="50" height="50">
+                <div>
+                  <h4 class="mb-0">Juan Pérez</h4>
+                  <p class="mb-0 text-muted">Director de Bomberos Voluntarios de Santa Cruz</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body position-relative">
+              <p class="mb-4">"Como autoridad local, ahora tengo información precisa para tomar decisiones difíciles sobre evacuaciones y asignación de recursos en mi municipio."</p>
+              <div class="d-flex align-items-center">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="María Fernández" class="rounded-circle me-3" width="50" height="50">
+                <div>
+                  <h4 class="mb-0">María Fernández</h4>
+                  <p class="mb-0 text-muted">Alcaldesa de Concepción, Chiquitos</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body position-relative">
+              <p class="mb-4">"Perdí mi casa en un incendio el año pasado. Esta plataforma me ayudó a encontrar albergue, comida y ahora sigo el proceso de reconstrucción con transparencia."</p>
+              <div class="d-flex align-items-center">
+                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Roberto Mendez" class="rounded-circle me-3" width="50" height="50">
+                <div>
+                  <h4 class="mb-0">Roberto Mendez</h4>
+                  <p class="mb-0 text-muted">Afectado por incendios en Roboré</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="bg-danger text-white p-5 rounded mb-5">
+      <div class="text-center">
+        <h2 class="display-5 fw-bold mb-4">Únase a nuestra red de protección forestal</h2>
+        <p class="lead mb-5">Ya sea como organización, voluntario o donante, su participación marca la diferencia.</p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+          <a href="#" class="btn btn-outline-light btn-lg"><i class="fas fa-hands-helping me-2"></i> Ser voluntario</a>
+          <a href="#" class="btn btn-light btn-lg text-danger"><i class="fas fa-building me-2"></i> Registrar organización</a>
+          <a href="#" class="btn btn-outline-light btn-lg"><i class="fas fa-donate me-2"></i> Hacer una donación</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white py-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-3">
+          <h3 class="h5 mb-3">Sobre el sistema</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Nuestra misión</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Equipo técnico</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Socios estratégicos</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Transparencia</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h3 class="h5 mb-3">Recursos</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Manuales de uso</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">API para desarrolladores</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Centro de datos abiertos</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Reportes anuales</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h3 class="h5 mb-3">Legal</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Términos de uso</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Política de privacidad</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Protección de datos</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Marco normativo</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h3 class="h5 mb-3">Contacto</h3>
+          <p class="mb-2"><i class="fas fa-phone-alt me-2"></i> Emergencias: 800-123-4567</p>
+          <p class="mb-2"><i class="fas fa-envelope me-2"></i> info@incendiosbolivia.org.bo</p>
+          <p class="mb-3"><i class="fas fa-map-marker-alt me-2"></i> Av. Ecológica #123, La Paz</p>
+          <div class="d-flex gap-3">
+            <a href="#" class="text-white"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-white"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-5 pt-3 border-top border-secondary">
+        <p class="mb-0 text-white-50">&copy; 2025 Sistema de Gestión de Organizaciones Voluntarias contra Incendios - Bolivia. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

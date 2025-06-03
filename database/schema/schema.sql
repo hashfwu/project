@@ -72,49 +72,6 @@ CREATE TABLE Persona (
 );
 GO
 
--- Tabla Recurso
-
-CREATE TABLE Recurso (
-	id_recurso int IDENTITY(1,1) NOT NULL,
-	nombre varchar(100),
-	disponibilidad varchar(20),
-	descripcion varchar(100),
-	marca varchar(50),
-	estado varchar(20),
-	PRIMARY KEY (id_recurso)
-);
-GO
-
--- Tabla Afectado
-
-CREATE TABLE Afectado (
-	id_afectado int IDENTITY(1,1) NOT NULL,
-	ci varchar(15),
-	id_area int,
-	telefono varchar(20),
-	ubicacion_domicilio varchar(150),
-	email varchar(100),
-	condicion varchar(20),
-	idioma varchar(50),
-	PRIMARY KEY (id_afectado),
-	FOREIGN KEY (ci) REFERENCES Persona(ci)
-);
-GO
-
--- Tabla Bien
-
-CREATE TABLE Bien (
-	id_bien int IDENTITY(1,1) NOT NULL,
-	id_afectado int,
-	tipo varchar(20),
-	magnitud_dano varchar(20),
-	costo_dano decimal(10,2),
-	PRIMARY KEY (id_bien),
-	FOREIGN KEY (id_afectado) REFERENCES Afectado(id_afectado)
-);
-GO
--- Tabla Bombero
-
 CREATE TABLE Bombero (
 	id_bombero int IDENTITY(1,1) NOT NULL,
 	ci varchar(15),
@@ -126,6 +83,18 @@ CREATE TABLE Bombero (
 	nombre_emergencia varchar(100),
 	PRIMARY KEY (id_bombero),
 	FOREIGN KEY (ci) REFERENCES Persona(ci)
+);
+
+-- Tabla Recurso
+
+CREATE TABLE Recurso (
+	id_recurso int IDENTITY(1,1) NOT NULL,
+	nombre varchar(100),
+	disponibilidad varchar(20),
+	descripcion varchar(100),
+	marca varchar(50),
+	estado varchar(20),
+	PRIMARY KEY (id_recurso)
 );
 GO
 
@@ -163,6 +132,17 @@ CREATE TABLE Donante (
 	email varchar(100),
 	PRIMARY KEY (id_donante),
 	FOREIGN KEY (ci) REFERENCES Persona(ci)
+);
+GO
+
+-- Tabla Enfermedad_Base
+
+CREATE TABLE Enfermedad_Base (
+	id_enfermedad_Base int IDENTITY(1,1) NOT NULL,
+	id_bombero int,
+	descripcion varchar(100),
+	PRIMARY KEY (id_enfermedad_Base),
+	FOREIGN KEY (id_bombero) REFERENCES Bombero(id_bombero)
 );
 GO
 
@@ -227,6 +207,8 @@ GO
 CREATE TABLE Oficial (
 	id_oficial int IDENTITY(1,1) NOT NULL,
 	id_bombero int,
+	rango varchar(20),
+	disponibilidad varchar(20),
 	PRIMARY KEY (id_oficial),
 	FOREIGN KEY (id_bombero) REFERENCES Bombero(id_bombero)
 );
@@ -253,6 +235,7 @@ CREATE TABLE Registro_Brigada (
 	fecha date,
 	tipo_registro varchar(20),
 	rango varchar(20),
+	disponibilidad varchar(20),
 	PRIMARY KEY (id_registro_brigada),
 	FOREIGN KEY (id_bombero) REFERENCES Bombero(id_bombero),
 	FOREIGN KEY (id_brigada) REFERENCES Brigada(id_brigada)
@@ -271,6 +254,22 @@ CREATE TABLE Reporte (
 	PRIMARY KEY (id_reporte),
 	FOREIGN KEY (id_incendio) REFERENCES Incendio(id_incendio),
 	FOREIGN KEY (id_gobernacion) REFERENCES Gobernacion(id_gobernacion)
+);
+GO
+
+-- Tabla Respuesta
+
+CREATE TABLE Respuesta (
+	id_respuesta int IDENTITY(1,1) NOT NULL,
+	id_brigada int,
+	id_incendio int,
+	evaluacion_respuesta varchar(100),
+	fecha_incursion date,
+	fecha_retirada date,
+	resultado_operacion varchar(100),
+	PRIMARY KEY (id_respuesta),
+	FOREIGN KEY (id_brigada) REFERENCES Brigada(id_brigada),
+	FOREIGN KEY (id_incendio) REFERENCES Incendio(id_incendio)
 );
 GO
 
@@ -311,33 +310,6 @@ CREATE TABLE Voluntario (
 	disponibilidad varchar(20),
 	PRIMARY KEY (id_voluntario),
 	FOREIGN KEY (id_bombero) REFERENCES Bombero(id_bombero)
-);
-GO
-
--- Tabla Enfermedad_BBBBBBBBase
-
-CREATE TABLE Enfermedad_Base (
-	id_enfermedad_Base int IDENTITY(1,1) NOT NULL,
-	id_bombero int,
-	descripcion varchar(100),
-	PRIMARY KEY (id_enfermedad_Base),
-	FOREIGN KEY (id_bombero) REFERENCES Bombero(id_bombero)
-);
-GO
-
--- Tabla Respuesta
-
-CREATE TABLE Respuesta (
-	id_respuesta int IDENTITY(1,1) NOT NULL,
-	id_brigada int,
-	id_incendio int,
-	evaluacion_respuesta varchar(100),
-	fecha_incursion date,
-	fecha_retirada date,
-	resultado_operacion varchar(100),
-	PRIMARY KEY (id_respuesta),
-	FOREIGN KEY (id_brigada) REFERENCES Brigada(id_brigada),
-	FOREIGN KEY (id_incendio) REFERENCES Incendio(id_incendio)
 );
 GO
 
@@ -423,20 +395,6 @@ CREATE TABLE Municipio (
 );
 GO
 
--- Tabla Registro_Recurso
-
-CREATE TABLE Registro_Recurso (
-	id_registro_recurso int IDENTITY(1,1) NOT NULL,
-	id_recurso int,
-	id_respuesta int,
-	tipo varchar(20),
-	fecha date,
-	PRIMARY KEY (id_registro_recurso),
-	FOREIGN KEY (id_recurso) REFERENCES Recurso(id_recurso),
-	FOREIGN KEY (id_respuesta) REFERENCES Respuesta(id_respuesta)
-);
-GO
-
 -- Tabla Participacion_Bombero
 
 CREATE TABLE Participacion_Bombero (
@@ -447,6 +405,20 @@ CREATE TABLE Participacion_Bombero (
 	fin_incursion date,
 	PRIMARY KEY (id_participacion_bombero),
 	FOREIGN KEY (id_bombero) REFERENCES Bombero(id_bombero),
+	FOREIGN KEY (id_respuesta) REFERENCES Respuesta(id_respuesta)
+);
+GO
+
+-- Tabla Registro_Recurso
+
+CREATE TABLE Registro_Recurso (
+	id_registro_recurso int IDENTITY(1,1) NOT NULL,
+	id_recurso int,
+	id_respuesta int,
+	tipo varchar(20),
+	fecha date,
+	PRIMARY KEY (id_registro_recurso),
+	FOREIGN KEY (id_recurso) REFERENCES Recurso(id_recurso),
 	FOREIGN KEY (id_respuesta) REFERENCES Respuesta(id_respuesta)
 );
 GO
@@ -473,5 +445,34 @@ CREATE TABLE Es_Afectado (
 	costo_dano decimal(10,2),
 	FOREIGN KEY (id_area) REFERENCES Area_Afectada(id_area),
 	FOREIGN KEY (id_incendio) REFERENCES Incendio(id_incendio)
+);
+GO
+
+-- Tabla Afectado
+
+CREATE TABLE Afectado (
+	id_afectado int IDENTITY(1,1) NOT NULL,
+	ci varchar(15),
+	id_area int,
+	telefono varchar(20),
+	email varchar(100),
+	ubicacion_domicilio varchar(150),
+	condicion varchar(20),
+	PRIMARY KEY (id_afectado),
+	FOREIGN KEY (ci) REFERENCES Persona(ci),
+	FOREIGN KEY (id_area) REFERENCES Area_Afectada(id_area)
+);
+GO
+
+-- Tabla Bien
+
+CREATE TABLE Bien (
+	id_bien int IDENTITY(1,1) NOT NULL,
+	id_afectado int,
+	tipo varchar(20),
+	magnitud_dano varchar(20),
+	costo_dano decimal(10,2),
+	PRIMARY KEY (id_bien),
+	FOREIGN KEY (id_afectado) REFERENCES Afectado(id_afectado)
 );
 GO
