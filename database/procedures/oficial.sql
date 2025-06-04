@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE register_afectado_sp(
+CREATE OR ALTER PROCEDURE register_oficial_sp(
     -- Persona
     @ci_persona varchar(15),
     @expedido_persona varchar(50),
@@ -7,12 +7,15 @@ CREATE OR ALTER PROCEDURE register_afectado_sp(
     @nombre_persona varchar(100),
     @sexo_persona varchar(10),
     @fecha_nacimiento_persona date,
-    -- Afectado
-    @id_area_afectado int,
-    @telefono_afectado varchar(20),
-    @email_afectado varchar(100),
-    @ubicacion_domicilio_afectado varchar(150),
-    @condicion_afectado varchar(20)
+    -- Bombero
+    @telefono_bombero varchar(20),
+    @ubicacion_domicilio_bombero varchar(150),
+    @email_bombero varchar(100),
+    @tipo_sangre_bombero varchar(10),
+    @telefono_emergencia_bombero varchar(20),
+    @nombre_emergencia_bombero varchar(100),
+    -- Oficial
+    @rango_oficial varchar(20)
 )
 AS
 BEGIN
@@ -31,14 +34,23 @@ BEGIN
             @fecha_nacimiento_persona
         );
 
-        INSERT INTO Afectado (ci, id_area, telefono, email, ubicacion_domicilio, condicion)
+        INSERT INTO Bombero (ci, telefono, ubicacion_domicilio, email, tipo_sangre, telefono_emergencia, nombre_emergencia)
         VALUES (
             @ci_persona,
-            @id_area_afectado,
-            @telefono_afectado,
-            @email_afectado,
-            @ubicacion_domicilio_afectado,
-            @condicion_afectado
+            @telefono_bombero,
+            @ubicacion_domicilio_bombero,
+            @email_bombero,
+            @tipo_sangre_bombero,
+            @telefono_emergencia_bombero,
+            @nombre_emergencia_bombero
+        );
+
+        DECLARE @new_id_bombero INT = SCOPE_IDENTITY();
+
+        INSERT INTO Oficial (id_bombero, rango)
+        VALUES (
+            @new_id_bombero,
+            @rango_oficial
         );
 
         COMMIT TRANSACTION;
@@ -53,3 +65,5 @@ BEGIN
     END CATCH;
 END;
 GO
+
+

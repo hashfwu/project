@@ -1,4 +1,3 @@
-
 CREATE DATABASE Bomberos;
 GO
 
@@ -176,12 +175,10 @@ GO
 
 CREATE TABLE Instructor (
 	id_instructor int IDENTITY(1,1) NOT NULL,
-	id_organizacion int,
 	ci varchar(15),
 	telefono varchar(20),
 	email varchar(100),
 	PRIMARY KEY (id_instructor),
-	FOREIGN KEY (id_organizacion) REFERENCES Organizacion(id_organizacion),
 	FOREIGN KEY (ci) REFERENCES Persona(ci)
 );
 GO
@@ -208,7 +205,6 @@ CREATE TABLE Oficial (
 	id_oficial int IDENTITY(1,1) NOT NULL,
 	id_bombero int,
 	rango varchar(20),
-	disponibilidad varchar(20),
 	PRIMARY KEY (id_oficial),
 	FOREIGN KEY (id_bombero) REFERENCES Bombero(id_bombero)
 );

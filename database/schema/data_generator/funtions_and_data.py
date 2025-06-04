@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 import string
 import random
 
@@ -493,9 +494,9 @@ municipios = [
 ]
 apellidos = [
     'Torres',
-    'Iturraldechinel',
+    'Iturral',
     'Iberia',
-    'Uriburucabero',
+    'Uriburu',
     'Vargas',
     'Zalles',
     'Ruiz',
@@ -507,14 +508,16 @@ apellidos = [
     'Rodriguez',
     'Decabrera',
     'Patino',
-    'Aguirreuriondo',
+    'Aguirre',
+    'Uriondo',
     'Arce',
     'Aparicio',
     'Quiroga',
     'Iturralde',
     'Guerrero',
-    'Hurtadodesaracho',
-    'Diezdemedina',
+    'Hurtado',
+    'Diezde',
+    'Medina',
     'Flores',
     'Castelo',
     'Saabedra',
@@ -526,11 +529,11 @@ apellidos = [
     'Estrada',
     'Miranda',
     'Baca',
-    'Canedobueno',
-    'Riverotorres',
+    'Canedo',
+    'Rivero',
     'Aramayo',
     'Picard',
-    'Medeirosquerejazu',
+    'Medeiro',
     'Rivera',
     'Segovia',
     'Molina',
@@ -543,7 +546,7 @@ apellidos = [
     'Zamora',
     'Aguilera',
     'Castillo',
-    'Castellanosaparicio',
+    'Castellanos',
     'Morales',
     'Tapia',
     'Trigo',
@@ -551,7 +554,7 @@ apellidos = [
     'Mercado',
     'Ortiz',
     'Ramallo',
-    'Ruiziideorellana',
+    'Ruiz',
     'Sanchez',
     'Urioste',
     'Granier',
@@ -561,10 +564,11 @@ apellidos = [
     'Mendoza',
     'Ramos',
     'Angulo',
-    'Delcastillo',
+    'Castillo',
     'Guerra',
     'Palacios',
-    'Pizarroarce',
+    'Pizarro',
+    'Arce',
     'Reyes',
     'Dearce',
     'Sisa',
@@ -584,8 +588,8 @@ apellidos = [
     'Arenas',
     'Gutierrez',
     'Delizarazu',
-    'Manriquedelara',
-    'Segarradelasroelas',
+    'Manrique',
+    'Segarra',
     'Vega',
     'Lalonde',
     'Mealla',
@@ -696,3 +700,80 @@ def generar_coordenadas():
 
 def generar_superficie():
     return round(random.uniform(10.0, 5000.0), 2)  # Superficie en hectáreas
+def generar_persona():
+    sexo = random.choice(['femenino', 'masculino'])
+    if sexo == 'femenino':
+        nombre = random.choice(nombres_femeninos)
+    else:
+        nombre = random.choice(nombres_masculinos)
+    rand_date = datetime(1980, 1, 1) + timedelta(days=random.randint(0, 365 * 20))
+    fecha_nac = rand_date.strftime('%Y-%m-%d')
+    paterno = random.choice(apellidos)
+    materno = random.choice(apellidos)
+    persona = {
+        'ci': random.randint(10000000, 99999999),
+        'expedido': random.choice(['LP', 'SCZ', 'CBBA', 'OR', 'PT', 'CH', 'TJA', 'BE', 'PD', 'EX']),
+        'paterno': paterno,
+        'materno': materno,
+        'nombre': nombre,
+        'sexo': sexo,
+        'fecha_nacimiento': fecha_nac,
+        'email': generar_email_aleatorio(nombre+' '+paterno+' '+materno+' '+str(random.randint(0000,9999))),
+        'telefono': generar_telefono()
+    }
+    return persona
+
+def generar_fecha_aleatoria(fecha_inicio_str, fecha_fin_str):
+    """
+    Genera una fecha aleatoria entre dos fechas dadas (inclusive).
+
+    Args:
+        fecha_inicio_str (str): La fecha de inicio en formato 'YYYY-MM-DD'.
+        fecha_fin_str (str): La fecha de fin en formato 'YYYY-MM-DD'.
+
+    Returns:
+        str: Una fecha aleatoria en formato 'YYYY-MM-DD'.
+    """
+    fecha_inicio = datetime.strptime(fecha_inicio_str, '%Y-%m-%d')
+    fecha_fin = datetime.strptime(fecha_fin_str, '%Y-%m-%d')
+    diferencia_dias = (fecha_fin - fecha_inicio).days
+    dias_aleatorios = random.randint(0, diferencia_dias)
+    fecha_aleatoria = fecha_inicio + timedelta(days=dias_aleatorios)
+    return fecha_aleatoria.strftime('%Y-%m-%d')
+
+nombre_brigadas = [
+    "Brigada Llama Eterna",
+    "Regimiento Guardabosques del Sol",
+    "Brigada Fénix del Alba",
+    "Regimiento Cima Ígnea",
+    "Brigada Centinelas del Arrayán",
+    "Regimiento Dracos Salvavidas",
+    "Brigada Eco Escudo",
+    "Regimiento Halcones del Monte",
+    "Brigada Raíces Resilientes",
+    "Regimiento Cóndor Andino",
+    "Brigada Lumbre Silvestre",
+    "Regimiento Centellas del Bosque",
+    "Brigada Escudo Verde",
+    "Regimiento Alas de Condor",
+    "Brigada Centinelas del Viento",
+    "Regimiento Apaguemos el Fuego",
+    "Brigada Custodios del Roble",
+    "Brigada Vértice Guardián",
+    "Regimiento Serpiente de Humo",
+    "Brigada San Agustín",
+    "Brigada Puerto Suárez",
+    "Regimiento Santa Cruz",
+    "Brigada Ayacucho Verde",
+    "Regimiento Valle de los Tobas",
+    "Brigada Guardianes del Pantanal",
+    "Brigada Llamas del Chaco",
+    "Regimiento Cóndores de Samaipata",
+    "Brigada Monte Ichilo",
+    "Regimiento Fuego de Potosí",
+    "Brigada Espíritu de la Amazonía",
+    "Regimiento Tacanas del Bosque",
+    "Brigada Yuracaré",
+    "Brigada Candelaria Forestal",
+    "Regimiento Río Grande"
+]

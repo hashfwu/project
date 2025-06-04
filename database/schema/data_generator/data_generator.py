@@ -47,8 +47,8 @@ def generate_random_incendio_data(num_records=20):
         end_date = start_date + timedelta(days=random.randint(30, 365))
 
         # Format dates for SQL
-        fecha_incio_str = start_date.strftime('%Y-%m-%d %H:%M:%S')
-        fecha_fin_str = end_date.strftime('%Y-%m-%d %H:%M:%S')
+        fecha_incio_str = start_date.strftime('%Y-%m-%d')
+        fecha_fin_str = end_date.strftime('%Y-%m-%d')
 
         insert_statement = (
             f"INSERT INTO Incendio (tipo, magnitud, fecha_incio, fecha_fin, descripcion, causa) "
@@ -233,6 +233,8 @@ def generate_random_organizacion_data(num_records=20):
     for statement in sql_statements:
         result += '\n' + statement
 
+    result += '\n'
+
     return result
 
 def generate_random_area_afectada_data(num_records=200, municipio_ids=range(1, 330)):
@@ -258,7 +260,7 @@ def generate_random_area_afectada_data(num_records=200, municipio_ids=range(1, 3
 
     sql_statements = []
 
-    for _ in range(num_records):
+    for _ in range(num_records): 
         tipo_vegetacion = random.choice(tipo_vegetaciones)
         descripcion = random.choice(descripciones)
         coordenadas = generar_coordenadas()
@@ -276,10 +278,278 @@ def generate_random_area_afectada_data(num_records=200, municipio_ids=range(1, 3
 
     return result
 
+def generate_random_afectado_data(num_records=150, area_afectada_id=range(1, 200)):
+    result = '-- Afectado\n'
+    
+    sql_statements = []
+    
+    for _ in range(num_records):
+        persona = generar_persona()
+        insert_statement = (
+            f"EXEC register_afectado_sp\n"
+            f"    @ci_persona = '{persona['ci']}',\n"
+            f"    @expedido_persona = '{persona['expedido']}',\n"
+            f"    @paterno_persona = '{persona['paterno']}',\n"
+            f"    @materno_persona = '{persona['materno']}',\n"
+            f"    @nombre_persona = '{persona['nombre']}',\n"
+            f"    @sexo_persona = '{persona['sexo']}',\n"
+            f"    @fecha_nacimiento_persona = '{persona['fecha_nacimiento']}',\n"
+            f"    @id_area_afectado = {random.choice(area_afectada_id)},\n"
+            f"    @telefono_afectado = '{generar_telefono()}',\n"
+            f"    @email_afectado = '{persona['email']}',\n"
+            f"    @ubicacion_domicilio_afectado = '{generar_ubicacion_aleatoria()}',\n"
+            f"    @condicion_afectado = '{random.choice(['malo', 'herido', 'fallecido'])}';\n"
+            f"    GO"
+        )
+
+        sql_statements.append(insert_statement)
+
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
+
+def generate_random_donante_data(num_records=150):
+    result = '-- Donante\n'
+    
+    sql_statements = []
+    
+    for _ in range(num_records):
+        persona = generar_persona()
+        insert_statement = (
+            f"EXEC register_donante_sp\n"
+            f"    @ci_persona = '{persona['ci']}',\n"
+            f"    @expedido_persona = '{persona['expedido']}',\n"
+            f"    @paterno_persona = '{persona['paterno']}',\n"
+            f"    @materno_persona = '{persona['materno']}',\n"
+            f"    @nombre_persona = '{persona['nombre']}',\n"
+            f"    @sexo_persona = '{persona['sexo']}',\n"
+            f"    @fecha_nacimiento_persona = '{persona['fecha_nacimiento']}',\n"
+            f"    @telefono_donante = '{persona['telefono']}',\n"
+            f"    @email_donante = '{persona['email']}';\n"
+            f"    GO"
+        )
+
+        sql_statements.append(insert_statement)
+
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
+
+def generate_random_instructor_data(num_records=150):
+    result = '-- Instructor\n'
+    
+    sql_statements = []
+    
+    for _ in range(num_records):
+        persona = generar_persona()
+        insert_statement = (
+            f"EXEC register_instructor_sp\n"
+            f"    @ci_persona = '{persona['ci']}',\n"
+            f"    @expedido_persona = '{persona['expedido']}',\n"
+            f"    @paterno_persona = '{persona['paterno']}',\n"
+            f"    @materno_persona = '{persona['materno']}',\n"
+            f"    @nombre_persona = '{persona['nombre']}',\n"
+            f"    @sexo_persona = '{persona['sexo']}',\n"
+            f"    @fecha_nacimiento_persona = '{persona['fecha_nacimiento']}',\n"
+            f"    @telefono_instructor = '{persona['telefono']}',\n"
+            f"    @email_instructor = '{persona['email']}';\n"
+            f"    GO"
+        )
+
+        sql_statements.append(insert_statement)
+
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
+
+def generate_random_oficial_data(num_records=150):
+    result = '-- Oficial\n'
+    
+    sql_statements = []
+    
+    for _ in range(num_records):
+        persona = generar_persona()
+        insert_statement = (
+            f"EXEC register_oficial_sp\n"
+            f"    @ci_persona = '{persona['ci']}',\n"
+            f"    @expedido_persona = '{persona['expedido']}',\n"
+            f"    @paterno_persona = '{persona['paterno']}',\n"
+            f"    @materno_persona = '{persona['materno']}',\n"
+            f"    @nombre_persona = '{persona['nombre']}',\n"
+            f"    @sexo_persona = '{persona['sexo']}',\n"
+            f"    @fecha_nacimiento_persona = '{persona['fecha_nacimiento']}',\n"
+            f"    @telefono_bombero = '{persona['telefono']}',\n"
+            f"    @ubicacion_domicilio_bombero = '{generar_ubicacion_aleatoria()}',\n"
+            f"    @email_bombero = '{persona['email']}',\n"
+            f"    @tipo_sangre_bombero = '{random.choice(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])}',\n"
+            f"    @telefono_emergencia_bombero = '{generar_telefono()}',\n"
+            f"    @nombre_emergencia_bombero = '{generar_nombre_completo_aleatorio()}',\n"
+            f"    @rango_oficial = '{random.choice(["Aspirante", "Operador de Vehículos", "Teniente", "Capitán", "Jefe de Brigada", "Subjefe de Brigada", "Jefe de Bomberos"])}';\n"
+            f"    GO"
+        )
+
+        sql_statements.append(insert_statement)
+
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
+
+def generate_random_capacita_data(num_records=100):
+    result = '-- Capacita\n'
+
+
+    sql_statements = []
+
+    for _ in range(num_records):
+        insert_statement = (
+            f"INSERT INTO Capacita"
+            f" VALUES ("
+            f"(SELECT TOP 1 id_curso FROM Curso ORDER BY NEWID()),"
+            f"(SELECT TOP 1 id_voluntario FROM Voluntario ORDER BY NEWID()),"
+            f"{random.randint(0, 100)},"
+            f"'{generar_fecha_aleatoria('2015-01-01', '2025-01-01')}',"
+            f"'{random.choice(['si', 'no'])}',"
+            f"'{random.choice(['si', 'no'])}'"
+            f");"
+        )
+        sql_statements.append(insert_statement)
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
+
+
+def generate_random_voluntario_data(num_records=150):
+    result = '-- Voluntario\n'
+    
+    sql_statements = []
+    
+    for _ in range(num_records):
+        persona = generar_persona()
+        insert_statement = (
+            f"EXEC register_voluntario_sp\n"
+            f"    @ci_persona = '{persona['ci']}',\n"
+            f"    @expedido_persona = '{persona['expedido']}',\n"
+            f"    @paterno_persona = '{persona['paterno']}',\n"
+            f"    @materno_persona = '{persona['materno']}',\n"
+            f"    @nombre_persona = '{persona['nombre']}',\n"
+            f"    @sexo_persona = '{persona['sexo']}',\n"
+            f"    @fecha_nacimiento_persona = '{persona['fecha_nacimiento']}',\n"
+            f"    @telefono_bombero = '{persona['telefono']}',\n"
+            f"    @ubicacion_domicilio_bombero = '{generar_ubicacion_aleatoria()}',\n"
+            f"    @email_bombero = '{persona['email']}',\n"
+            f"    @tipo_sangre_bombero = '{random.choice(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])}',\n"
+            f"    @telefono_emergencia_bombero = '{generar_telefono()}',\n"
+            f"    @nombre_emergencia_bombero = '{generar_nombre_completo_aleatorio()}',\n"
+            f"    @disponibilidad = '{random.choice(["diponible", "no diponible"])}';\n"
+            f"    GO"
+        )
+
+        sql_statements.append(insert_statement)
+
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
+
+def generate_random_dicta_data(num_records=100):
+    result = '-- Dicta\n'
+
+
+    sql_statements = []
+
+    for _ in range(num_records):
+        fecha_inicio = generar_fecha_aleatoria('2015-01-01', '2024-01-01')
+        fecha_fin = generar_fecha_aleatoria(fecha_inicio, '2024-01-01')
+        insert_statement = (
+            f"INSERT INTO Dicta"
+            f" VALUES ("
+            f"(SELECT TOP 1 id_instructor FROM Instructor ORDER BY NEWID()),"
+            f"(SELECT TOP 1 id_curso FROM Curso ORDER BY NEWID()),"
+            f"'{fecha_inicio}',"
+            f"'{fecha_fin}'"
+            f");"
+        )
+        sql_statements.append(insert_statement)
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
+
+def generate_random_brigada_data():
+    result = '-- Brigada\n'
+
+
+    sql_statements = []
+
+    for nombre_brigada in nombre_brigadas:
+        insert_statement = (
+            f"INSERT INTO Brigada"
+            f" VALUES ("
+            f"(SELECT TOP 1 id_organizacion FROM Organizacion ORDER BY NEWID()),"
+            f"'{nombre_brigada}',"
+            f"'{generar_fecha_aleatoria('2015-01-01', '2024-01-01')}',"
+            f"'{generar_ubicacion_aleatoria()}'"
+            f");"
+        )
+        sql_statements.append(insert_statement)
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
+
+def generate_random_vivere_data(num_records=100):
+    result = '-- Vivere\n'
+
+    sql_statements = []
+
+    for _ in range(num_records):
+        fecha_inicio = generar_fecha_aleatoria('2015-01-01', '2024-01-01')
+        fecha_fin = generar_fecha_aleatoria(fecha_inicio, '2024-01-01')
+        insert_statement = (
+            f"EXEC register_vivere_sp "
+            f"{random.choice(nombres_recurso)},"
+            f"{random.choice(['disponible', 'no disponible'])},"
+            f"{random.choice(descripciones_recurso)},"
+            f"{random.choice(marcas_recursos)},"
+            f"{random.choice(['bueno', 'malo'])},"
+            f"{random.choice(['mg', 'kg'])},"
+            f"{random.uniform(10,100)},"
+            f"{random.randint(2,100)},"
+            f"{generar_fecha_aleatoria('2024-01-01', '2028-01-01')},"
+            f");"
+        )
+        sql_statements.append(insert_statement)
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
 
 if __name__ == "__main__":
     
-    file_name = 'incendios_data.sql'
+    file_name = 'output_data.sql'
     
     sql_statements = []
     
@@ -289,9 +559,17 @@ if __name__ == "__main__":
     sql_statements.append(generate_random_alcaldia_data())
     sql_statements.append(generate_random_organizacion_data())
     sql_statements.append(generate_random_area_afectada_data())
+    sql_statements.append(generate_random_afectado_data())
+    sql_statements.append(generate_random_donante_data())
+    sql_statements.append(generate_random_instructor_data())
+    sql_statements.append(generate_random_oficial_data())
+    sql_statements.append(generate_random_voluntario_data())
+    sql_statements.append(generate_random_capacita_data())
+    sql_statements.append(generate_random_dicta_data())
+    sql_statements.append(generate_random_brigada_data())
     
     try:
-        with open(f'database/schema/{file_name}', 'w', encoding='utf-8') as f:
+        with open(f'database/schema/data_generator/{file_name}', 'w', encoding='utf-8') as f:
             for sql_statement in sql_statements:
                 f.write(sql_statement + '\n')
         print(f"Successfully generated '{file_name}'")

@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE register_afectado_sp(
+CREATE OR ALTER PROCEDURE register_donante_sp(
     -- Persona
     @ci_persona varchar(15),
     @expedido_persona varchar(50),
@@ -7,12 +7,9 @@ CREATE OR ALTER PROCEDURE register_afectado_sp(
     @nombre_persona varchar(100),
     @sexo_persona varchar(10),
     @fecha_nacimiento_persona date,
-    -- Afectado
-    @id_area_afectado int,
-    @telefono_afectado varchar(20),
-    @email_afectado varchar(100),
-    @ubicacion_domicilio_afectado varchar(150),
-    @condicion_afectado varchar(20)
+    -- Donante 
+    @telefono_donante varchar(20),
+    @email_donante varchar(100)
 )
 AS
 BEGIN
@@ -31,14 +28,11 @@ BEGIN
             @fecha_nacimiento_persona
         );
 
-        INSERT INTO Afectado (ci, id_area, telefono, email, ubicacion_domicilio, condicion)
+    INSERT INTO Donante (ci, telefono, email)
         VALUES (
             @ci_persona,
-            @id_area_afectado,
-            @telefono_afectado,
-            @email_afectado,
-            @ubicacion_domicilio_afectado,
-            @condicion_afectado
+            @telefono_donante,
+            @email_donante
         );
 
         COMMIT TRANSACTION;
