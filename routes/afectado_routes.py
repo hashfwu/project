@@ -6,7 +6,7 @@ afectado_bp = Blueprint('afectado', __name__)
 
 @afectado_bp.route('/')
 def dashboard():
-    return render_template('afectado/login_register.html', nav_secction='afectado-narvar', NAVBARS=NAVBARS)
+    return render_template('afectado/login_register.html', nav_secction='afectado-narvar', NAVBARS=NAVBARS, variable='hola')
 
 @afectado_bp.route('/login', methods=['POST'])
 def login():
@@ -37,7 +37,7 @@ def login():
             conn.close()
 
 @afectado_bp.route('/register', methods=['GET', 'POST'])
-def registrarse():
+def register():
     if request.method == 'POST':
         ci = request.form['ci']
         expedido = request.form['expedido']
