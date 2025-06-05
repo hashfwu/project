@@ -6,7 +6,7 @@ afectado_bp = Blueprint('afectado', __name__)
 
 @afectado_bp.route('/')
 def dashboard():
-    return render_template('afectado/login_register.html', nav_secction='afectado-narvar', NAVBARS=NAVBARS, variable='hola')
+    return render_template('afectado/login_register.html', nav_secction='afectado-narvar', NAVBARS=NAVBARS)
 
 @afectado_bp.route('/login', methods=['POST'])
 def login():
