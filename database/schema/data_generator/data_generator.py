@@ -393,7 +393,7 @@ def generate_random_oficial_data(num_records=150):
             f"    @tipo_sangre_bombero = '{random.choice(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])}',\n"
             f"    @telefono_emergencia_bombero = '{generar_telefono()}',\n"
             f"    @nombre_emergencia_bombero = '{generar_nombre_completo_aleatorio()}',\n"
-            f"    @rango_oficial = '{random.choice(["Aspirante", "Operador de Vehículos", "Teniente", "Capitán", "Jefe de Brigada", "Subjefe de Brigada", "Jefe de Bomberos"])}';\n"
+            f"    @rango_oficial = '{random.choice(rangos_bombero)}';\n"
             f"    GO"
         )
 
@@ -885,6 +885,72 @@ def generate_random_bien_data(num_records=70):
     
     return result
 
+def generate_random_registro_oficial_data(num_records=range(1,150)):
+    result = '-- Registro oficial\n'
+
+    sql_statements = []
+
+    for i in num_records:
+        registros = generar_registro_oficial()
+        for registro in registros:
+            if registro['tipo'] == 'inscripcion':
+                insert_statement = (
+                    f"SELECT TOP 1 id_brigada = @v_id_brigada FROM Brigada ORDER BY NEWID();"
+                    )
+                sql_statements.append(insert_statement)
+            insert_statement = (
+                f"INSERT INTO Registro_Brigada"
+                f" VALUES ("
+                f"@v_id_brigada,"
+                f"{i},"
+                f"'{registro['fecha']}',"
+                f"'{registro['tipo']}',"
+                f"'{registro['rango']}',"
+                f"'{registro['disponibilidad']}'"
+                f");"
+            )
+            sql_statements.append(insert_statement)
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
+
+def generate_random_registro_voluntario_data(num_records=range(151,300)):
+    result = '-- Registro voluntario\n'
+
+    sql_statements = []
+
+    for i in num_records:
+        registros = generar_registro_voluntario()
+        for registro in registros:
+            if registro['tipo'] == 'inscripcion':
+                insert_statement = (
+                    f"SELECT TOP 1 id_brigada = @v_id_brigada FROM Brigada ORDER BY NEWID();"
+                    )
+                sql_statements.append(insert_statement)
+            insert_statement = (
+                f"INSERT INTO Registro_Brigada"
+                f" VALUES ("
+                f"@v_id_brigada,"
+                f"{i},"
+                f"'{registro['fecha']}',"
+                f"'{registro['tipo']}',"
+                f"'voluntario',"
+                f"'{registro['disponibilidad']}'"
+                f");"
+            )
+            sql_statements.append(insert_statement)
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
+
+
+
 if __name__ == "__main__":
     
     file_name = 'output_data.sql'
@@ -921,6 +987,9 @@ if __name__ == "__main__":
     sql_statements.append('\nGO\n')
     sql_statements.append(generate_random_enfermedad_data())
     sql_statements.append(generate_random_bien_data())
+    sql_statements.append('\nDECLARE @v_id_brigada INT;\n')
+    sql_statements.append(generate_random_registro_oficial_data())
+    sql_statements.append(generate_random_registro_voluntario_data())
     
     try:
         with open(f'database/schema/data_generator/{file_name}', 'w', encoding='utf-8') as f:

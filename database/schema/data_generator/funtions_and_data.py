@@ -1428,3 +1428,121 @@ tipos_bien = [
     'Tanques de agua',
     'Carpas o equipos de camping'
 ]
+
+rangos_bombero=["Aspirante", "Operador de Vehículos", "Teniente", "Capitán", "Subjefe de Brigada", "Jefe de Brigada", "Jefe de Bomberos"]
+
+def generar_registro_oficial(num_max_registros=6):
+    num_registros = random.randint(1, num_max_registros)
+    fechas = [generar_fecha_aleatoria('2014-01-01', '2025-01-01') for _ in range(num_registros)]
+    fechas.sort()
+
+    tipo_registro = ['inscripcion']
+    disponibilidad = ['disponible']
+    rango_actual = 0
+    rango = [rangos_bombero[rango_actual]]
+
+    for i in range(1, num_registros):
+        anterior = tipo_registro[i - 1]
+
+        if anterior == 'inscripcion':
+            if random.random() < 0.5:
+                tipo_registro.append('baja')
+                disponibilidad.append('no disponible')
+                # Rango se mantiene al momento de baja
+                rango.append(rangos_bombero[rango_actual])
+            else:
+                if rango_actual < len(rangos_bombero) - 1:
+                    rango_actual += 1
+                    tipo_registro.append('ascenso')
+                    disponibilidad.append('disponible')
+                    rango.append(rangos_bombero[rango_actual])
+                else:
+                    tipo_registro.append('descenso')
+                    rango_actual = max(0, rango_actual - 1)
+                    disponibilidad.append('disponible')
+                    rango.append(rangos_bombero[rango_actual])
+
+        elif anterior == 'baja':
+            tipo_registro.append('inscripcion')
+            disponibilidad.append('disponible')
+            rango_actual = 0  # Reinicia desde el primer rango
+            rango.append(rangos_bombero[rango_actual])
+
+        elif anterior == 'ascenso' or anterior == 'descenso':
+            opcion = random.choice(['baja', 'ascenso', 'descenso'])
+            if opcion == 'baja':
+                tipo_registro.append('baja')
+                disponibilidad.append('no disponible')
+                rango.append(rangos_bombero[rango_actual])
+            elif opcion == 'ascenso':
+                if rango_actual < len(rangos_bombero) - 1:
+                    rango_actual += 1
+                tipo_registro.append('ascenso')
+                disponibilidad.append('disponible')
+                rango.append(rangos_bombero[rango_actual])
+            else:  # descenso
+                if rango_actual > 0:
+                    rango_actual -= 1
+                tipo_registro.append('descenso')
+                disponibilidad.append('disponible')
+                rango.append(rangos_bombero[rango_actual])
+
+    registro = []
+    for fecha, tipo, dispo, rango_nombre in zip(fechas, tipo_registro, disponibilidad, rango):
+        registro.append({
+            'fecha': fecha,
+            'tipo': tipo,
+            'disponibilidad': dispo,
+            'rango': rango_nombre
+        })
+
+    return registro
+
+def generar_registro_voluntario(num_max_registros=6):
+    num_registros = random.randint(1, num_max_registros)
+    fechas = [generar_fecha_aleatoria('2014-01-01', '2025-01-01') for _ in range(num_registros)]
+    fechas.sort()
+
+    tipo_registro = ['inscripcion']
+    disponibilidad = ['disponible']
+
+    for i in range(1, num_registros):
+        anterior_registro = tipo_registro[i - 1]
+        anterior_diponibilidad = disponibilidad[i - 1]
+
+        if anterior_registro == 'inscripcion':
+            if random.random() < 0.5:
+                tipo_registro.append('baja')
+                disponibilidad.append('no disponible')
+            else:
+                if anterior_diponibilidad == 'disponible':
+                    tipo_registro.append('cambio de disponibilidad')
+                    disponibilidad.append('no disponible')
+                else:
+                    tipo_registro.append('cambio de disponibilidad')
+                    disponibilidad.append('disponible')
+        if anterior_registro == 'baja':
+            tipo_registro.append('inscripcion')
+            disponibilidad.append('disponible')
+
+        if anterior_registro == 'cambio de disponibilidad':
+            if random.random() < 0.5:
+                tipo_registro.append('baja')
+                disponibilidad.append('no disponible')
+            else:
+                if anterior_diponibilidad == 'disponible':
+                    tipo_registro.append('cambio de disponibilidad')
+                    disponibilidad.append('no disponible')
+                else:
+                    tipo_registro.append('cambio de disponibilidad')
+                    disponibilidad.append('disponible')
+
+    registro = []
+    for fecha, tipo, dispo  in zip(fechas, tipo_registro, disponibilidad):
+        registro.append({
+            'fecha': fecha,
+            'tipo': tipo,
+            'disponibilidad': dispo
+        })
+
+    return registro
