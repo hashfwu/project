@@ -518,15 +518,19 @@ def generate_random_brigada_data():
     
     return result
 
-def generate_random_vivere_data(num_records=50):
-    result = '-- Vivere\n'
+def generate_random_donacion_vivere_data(num_records=50):
+    result = '-- Vivere donacion\n'
 
     sql_statements = []
 
     for _ in range(num_records):
         vivere = random.choice(viveres)
         insert_statement = (
-            f"EXEC register_vivere_sp "
+            f"SELECT TOP 1 @v_id_donante = id_donante FROM Donante ORDER BY NEWID();\n"
+            f"EXEC register_donacion_vivere_sp "
+            f"@v_id_donante,"
+            f"'{generar_fecha_aleatoria('2014-01-01', '2025-01-01')}',"
+            f"'fisico',"
             f"'{vivere['nombre']}',"
             f"'{random.choice(['disponible', 'no disponible'])}',"
             f"'{vivere['descripcion']}',"
@@ -547,15 +551,19 @@ def generate_random_vivere_data(num_records=50):
     
     return result
 
-def generate_random_medicamento_data(num_records=50):
-    result = '-- Medicamento\n'
+def generate_random_donacion_medicamento_data(num_records=50):
+    result = '-- Medicamento donacion\n'
 
     sql_statements = []
 
     for _ in range(num_records):
         medicamento = random.choice(medicamentos)
         insert_statement = (
-            f"exec register_medicamento_sp "
+            f"SELECT TOP 1 @v_id_donante = id_donante FROM Donante ORDER BY NEWID();\n"
+            f"EXEC register_donacion_medicamento_sp "
+            f"@v_id_donante,"
+            f"'{generar_fecha_aleatoria('2014-01-01', '2025-01-01')}',"
+            f"'fisico',"
             f"'{medicamento['nombre']}',"
             f"'{random.choice(['disponible', 'no disponible'])}',"
             f"'{medicamento['descripcion']}',"
@@ -577,15 +585,19 @@ def generate_random_medicamento_data(num_records=50):
     
     return result
 
-def generate_random_herramienta_data(num_records=50):
-    result = '-- Herramienta\n'
+def generate_random_donacion_herramienta_data(num_records=50):
+    result = '-- Herramienta donacion\n'
 
     sql_statements = []
 
     for _ in range(num_records):
         herramienta = random.choice(herramientas)
         insert_statement = (
-            f"exec register_herramienta_sp "
+            f"SELECT TOP 1 @v_id_donante = id_donante FROM Donante ORDER BY NEWID();\n"
+            f"EXEC register_donacion_herramienta_sp "
+            f"@v_id_donante,"
+            f"'{generar_fecha_aleatoria('2014-01-01', '2025-01-01')}',"
+            f"'fisico',"
             f"'{herramienta['nombre']}',"
             f"'{random.choice(['disponible', 'no disponible'])}',"
             f"'{herramienta['descripcion']}',"
@@ -604,8 +616,8 @@ def generate_random_herramienta_data(num_records=50):
     
     return result
 
-def generate_random_vehiculo_data(num_records=50):
-    result = '-- Vehiculo\n'
+def generate_random_donacion_vehiculo_data(num_records=50):
+    result = '-- Vehiculo donacion\n'
 
     sql_statements = []
 
@@ -614,7 +626,11 @@ def generate_random_vehiculo_data(num_records=50):
         modelo = random.choice(modelo_vehiculos)
         nombre = vehiculo['tipo'] + ' ' + modelo
         insert_statement = (
-            f"exec register_vehiculo_sp "
+            f"SELECT TOP 1 @v_id_donante = id_donante FROM Donante ORDER BY NEWID();\n"
+            f"EXEC register_donacion_vehiculo_sp "
+            f"@v_id_donante,"
+            f"'{generar_fecha_aleatoria('2014-01-01', '2025-01-01')}',"
+            f"'fisico',"
             f"'{nombre}',"
             f"'{random.choice(['disponible', 'no disponible'])}',"
             f"'{vehiculo['descripcion']}',"
@@ -635,8 +651,8 @@ def generate_random_vehiculo_data(num_records=50):
     
     return result
 
-def generate_random_dinero_data(num_records=50):
-    result = '-- Dinero\n'
+def generate_random_donacion_dinero_data(num_records=50):
+    result = '-- Dinero donacion\n'
 
     sql_statements = []
 
@@ -644,7 +660,11 @@ def generate_random_dinero_data(num_records=50):
         monto = random.randint(100, 5000)
         moneda = random.choice(['bolivianos', 'dolares', 'euros'])
         insert_statement = (
-            f"exec register_dinero_sp "
+            f"SELECT TOP 1 @v_id_donante = id_donante FROM Donante ORDER BY NEWID();\n"
+            f"EXEC register_donacion_dinero_sp "
+            f"@v_id_donante,"
+            f"'{generar_fecha_aleatoria('2014-01-01', '2025-01-01')}',"
+            f"'fisico',"
             f"'Monto {moneda} {monto}',"
             f"'{random.choice(['disponible', 'no disponible'])}',"
             f"NULL,"
@@ -682,11 +702,12 @@ if __name__ == "__main__":
     sql_statements.append(generate_random_capacita_data())
     sql_statements.append(generate_random_dicta_data())
     sql_statements.append(generate_random_brigada_data())
-    sql_statements.append(generate_random_vivere_data())
-    sql_statements.append(generate_random_medicamento_data())
-    sql_statements.append(generate_random_herramienta_data())
-    sql_statements.append(generate_random_vehiculo_data())
-    sql_statements.append(generate_random_dinero_data())
+    sql_statements.append('\nDECLARE @v_id_donante INT;\n')
+    sql_statements.append(generate_random_donacion_vivere_data())
+    sql_statements.append(generate_random_donacion_medicamento_data())
+    sql_statements.append(generate_random_donacion_herramienta_data())
+    sql_statements.append(generate_random_donacion_vehiculo_data())
+    sql_statements.append(generate_random_donacion_dinero_data())
     
     try:
         with open(f'database/schema/data_generator/{file_name}', 'w', encoding='utf-8') as f:

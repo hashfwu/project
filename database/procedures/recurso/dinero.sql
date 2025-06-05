@@ -1,14 +1,13 @@
-CREATE OR ALTER PROCEDURE register_herramienta_sp(
+CREATE OR ALTER PROCEDURE register_dinero_sp (
     -- Recurso
     @nombre_recurso VARCHAR(100),
     @disponibilidad VARCHAR(20),
     @descripcion VARCHAR(100),
     @marca VARCHAR(50),
     @estado VARCHAR(20),
-    -- Herramienta
+    -- Dinero
     @cantidad INT,
-    @serie VARCHAR(50),
-    @tipo VARCHAR(50)
+    @moneda VARCHAR(50)
 )
 AS
 BEGIN
@@ -31,20 +30,18 @@ BEGIN
             @estado
         );
 
-        -- Obtener el ID generado del recurso
+        -- Obtener el ID del recurso recién insertado
         DECLARE @new_id_recurso INT = SCOPE_IDENTITY();
 
-        -- Insertar en Herramienta
-        INSERT INTO Herramienta (
+        -- Insertar en Dinero
+        INSERT INTO Dinero (
             id_recurso,
             cantidad,
-            serie,
-            tipo
+            moneda
         ) VALUES (
             @new_id_recurso,
             @cantidad,
-            @serie,
-            @tipo
+            @moneda
         );
 
         COMMIT TRANSACTION;

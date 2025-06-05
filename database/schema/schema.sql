@@ -366,12 +366,12 @@ GO
 -- Tabla Dona
 
 CREATE TABLE Dona (
-	id_donacion int NOT NULL,
+	id_donacion int IDENTITY(1,1) NOT NULL,
 	id_recurso int NOT NULL,
 	id_donante int,
 	fecha date,
 	metodo varchar(20),
-	PRIMARY KEY (id_donacion,id_recurso),
+	PRIMARY KEY (id_donacion),
 	FOREIGN KEY (id_donante) REFERENCES Donante(id_donante),
 	FOREIGN KEY (id_recurso) REFERENCES Recurso(id_recurso)
 );
