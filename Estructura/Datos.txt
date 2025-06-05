@@ -12,7 +12,7 @@ Herramienta✅
 Instructor✅
 Medicamento✅
 Oficial✅
-Provee
+Provee✅
 Registro_Brigada
 Reporte
 Respuesta
@@ -23,7 +23,7 @@ Alcaldia✅
 Alerta
 Capacita✅
 Dicta✅
-Dona
+Dona✅
 Municipio✅
 Participacion_Bombero
 Registro_Recurso

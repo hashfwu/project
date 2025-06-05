@@ -664,7 +664,166 @@ def generate_random_donacion_dinero_data(num_records=50):
             f"EXEC register_donacion_dinero_sp "
             f"@v_id_donante,"
             f"'{generar_fecha_aleatoria('2014-01-01', '2025-01-01')}',"
-            f"'fisico',"
+            f"'{random.choice(['fisico', 'virtual'])}',"
+            f"'Monto {moneda} {monto}',"
+            f"'{random.choice(['disponible', 'no disponible'])}',"
+            f"NULL,"
+            f"NULL,"
+            f"NULL,"
+            f"'{monto}',"
+            f"'{moneda}'"
+            f";"
+        )
+        sql_statements.append(insert_statement)
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
+
+def generate_random_provee_vivere_data(num_records=50):
+    result = '-- Vivere provee\n'
+
+    sql_statements = []
+
+    for _ in range(num_records):
+        vivere = random.choice(viveres)
+        insert_statement = (
+            f"SELECT TOP 1 @v_id_intitucion_gobernante = id_intitucion_gobernante FROM Institucion_Gobernante ORDER BY NEWID();\n"
+            f"EXEC register_provee_vivere_sp "
+            f"@v_id_intitucion_gobernante,"
+            f"'{generar_fecha_aleatoria('2014-01-01', '2025-01-01')}',"
+            f"'{vivere['nombre']}',"
+            f"'{random.choice(['disponible', 'no disponible'])}',"
+            f"'{vivere['descripcion']}',"
+            f"'{vivere['marca']}',"
+            f"'{random.choice(['bueno', 'malo', 'regular'])}',"
+            f"'{vivere['medida']}',"
+            f"{random.uniform(10,100):.2f},"
+            f"{random.randint(2,100)},"
+            f"'{vivere['categoria']}',"
+            f"'{generar_fecha_aleatoria('2024-01-01', '2028-01-01')}'"
+            f";"
+        )
+        sql_statements.append(insert_statement)
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
+
+def generate_random_provee_medicamento_data(num_records=50):
+    result = '-- Medicamento provee\n'
+
+    sql_statements = []
+
+    for _ in range(num_records):
+        medicamento = random.choice(medicamentos)
+        insert_statement = (
+            f"SELECT TOP 1 @v_id_intitucion_gobernante = id_intitucion_gobernante FROM Institucion_Gobernante ORDER BY NEWID();\n"
+            f"EXEC register_provee_medicamento_sp "
+            f"@v_id_intitucion_gobernante,"
+            f"'{generar_fecha_aleatoria('2014-01-01', '2025-01-01')}',"
+            f"'{medicamento['nombre']}',"
+            f"'{random.choice(['disponible', 'no disponible'])}',"
+            f"'{medicamento['descripcion']}',"
+            f"'{random.choice(marca_medicamentos)}',"
+            f"'{random.choice(['bueno', 'malo', 'regular'])}',"
+            f"'{medicamento['uso']}',"
+            f"'{generar_fecha_aleatoria('2024-01-01', '2028-01-01')}',"
+            f"'{medicamento['medida']}',"
+            f"{random.uniform(10,100):.2f},"
+            f"{random.randint(2,100)},"
+            f"'{medicamento['contraindicaciones']}'"
+            f";"
+        )
+        sql_statements.append(insert_statement)
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
+
+def generate_random_provee_herramienta_data(num_records=50):
+    result = '-- Herramienta provee\n'
+
+    sql_statements = []
+
+    for _ in range(num_records):
+        herramienta = random.choice(herramientas)
+        insert_statement = (
+            f"SELECT TOP 1 @v_id_intitucion_gobernante = id_intitucion_gobernante FROM Institucion_Gobernante ORDER BY NEWID();\n"
+            f"EXEC register_provee_herramienta_sp "
+            f"@v_id_intitucion_gobernante,"
+            f"'{generar_fecha_aleatoria('2014-01-01', '2025-01-01')}',"
+            f"'{herramienta['nombre']}',"
+            f"'{random.choice(['disponible', 'no disponible'])}',"
+            f"'{herramienta['descripcion']}',"
+            f"'{random.choice(marca_herramientas)}',"
+            f"'{random.choice(['bueno', 'malo', 'regular'])}',"
+            f"{random.randint(1,20)},"
+            f"'{generar_numero_serie()}',"
+            f"'{herramienta['tipo']}'"
+            f";"
+        )
+        sql_statements.append(insert_statement)
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
+
+def generate_random_provee_vehiculo_data(num_records=50):
+    result = '-- Vehiculo provee\n'
+
+    sql_statements = []
+
+    for _ in range(num_records):
+        vehiculo = random.choice(vehiculos)
+        modelo = random.choice(modelo_vehiculos)
+        nombre = vehiculo['tipo'] + ' ' + modelo
+        insert_statement = (
+            f"SELECT TOP 1 @v_id_intitucion_gobernante = id_intitucion_gobernante FROM Institucion_Gobernante ORDER BY NEWID();\n"
+            f"EXEC register_provee_vehiculo_sp "
+            f"@v_id_intitucion_gobernante,"
+            f"'{generar_fecha_aleatoria('2014-01-01', '2025-01-01')}',"
+            f"'{nombre}',"
+            f"'{random.choice(['disponible', 'no disponible'])}',"
+            f"'{vehiculo['descripcion']}',"
+            f"'{random.choice(marca_vehiculos)}',"
+            f"'{random.choice(['bueno', 'malo', 'regular'])}',"
+            f"'{generar_placa()}',"
+            f"'{vehiculo['tipo']}',"
+            f"'{modelo}',"
+            f"{random.randint(1980, 2020)},"
+            f"'{random.choice(colores)}'"
+            f";"
+        )
+        sql_statements.append(insert_statement)
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
+
+def generate_random_provee_dinero_data(num_records=50):
+    result = '-- Dinero provee\n'
+
+    sql_statements = []
+
+    for _ in range(num_records):
+        monto = random.randint(100, 5000)
+        moneda = random.choice(['bolivianos', 'dolares', 'euros'])
+        insert_statement = (
+            f"SELECT TOP 1 @v_id_intitucion_gobernante = id_intitucion_gobernante FROM Institucion_Gobernante ORDER BY NEWID();\n"
+            f"EXEC register_provee_dinero_sp "
+            f"@v_id_intitucion_gobernante,"
+            f"'{generar_fecha_aleatoria('2014-01-01', '2025-01-01')}',"
             f"'Monto {moneda} {monto}',"
             f"'{random.choice(['disponible', 'no disponible'])}',"
             f"NULL,"
@@ -708,6 +867,14 @@ if __name__ == "__main__":
     sql_statements.append(generate_random_donacion_herramienta_data())
     sql_statements.append(generate_random_donacion_vehiculo_data())
     sql_statements.append(generate_random_donacion_dinero_data())
+    sql_statements.append('\nGO\n')
+    sql_statements.append('\nDECLARE @v_id_intitucion_gobernante INT;\n')
+    sql_statements.append(generate_random_provee_vivere_data())
+    sql_statements.append(generate_random_provee_medicamento_data())
+    sql_statements.append(generate_random_provee_herramienta_data())
+    sql_statements.append(generate_random_provee_vehiculo_data())
+    sql_statements.append(generate_random_provee_dinero_data())
+    sql_statements.append('\nGO\n')
     
     try:
         with open(f'database/schema/data_generator/{file_name}', 'w', encoding='utf-8') as f:
