@@ -25,8 +25,8 @@ Capacita✅
 Dicta✅
 Dona✅
 Municipio✅
-Participacion_Bombero
-Registro_Recurso
+Participacion_Bombero✅
+Registro_Recurso✅
 Area_Afectada✅
 Es_Afectado✅
 Afectado✅

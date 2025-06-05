@@ -1069,6 +1069,43 @@ def generate_random_participacion_bombero_data(num_records=200):
     result += '\n'
     
     return result
+
+def generate_random_registro_recurso_data(num_records=300):
+    result = '--  Registro Recurso\n'
+
+    sql_statements = []
+
+    for _ in range(num_records):
+        fecha_extraccion = generar_fecha_aleatoria('2014-01-01', '2025-01-01')
+        fecha_devolucion = generar_fecha_aleatoria(fecha_extraccion, '2025-01-01')
+        insert_statement = (
+            f"INSERT INTO Registro_Recurso"
+            f" VALUES ("
+            f"(SELECT TOP 1 id_recurso FROM Recurso ORDER BY NEWID()),"
+            f"(SELECT TOP 1 id_respuesta FROM Respuesta ORDER BY NEWID()),"
+            f"'extraccion',"
+            f"'{fecha_extraccion}'"
+            f");"
+        )
+        sql_statements.append(insert_statement)
+        insert_statement = (
+            f"INSERT INTO Registro_Recurso"
+            f" VALUES ("
+            f"(SELECT TOP 1 id_recurso FROM Recurso ORDER BY NEWID()),"
+            f"(SELECT TOP 1 id_respuesta FROM Respuesta ORDER BY NEWID()),"
+            f"'devolucion',"
+            f"'{fecha_devolucion}'"
+            f");"
+        )
+        sql_statements.append(insert_statement)
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
+
+
 if __name__ == "__main__":
     
     file_name = 'output_data.sql'
@@ -1113,6 +1150,7 @@ if __name__ == "__main__":
     sql_statements.append(generate_random_es_afectado_data())
     sql_statements.append(generate_random_repuesta_data())
     sql_statements.append(generate_random_participacion_bombero_data())
+    sql_statements.append(generate_random_registro_recurso_data())
     
     try:
         with open(f'database/schema/data_generator/{file_name}', 'w', encoding='utf-8') as f:
