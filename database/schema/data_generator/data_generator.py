@@ -949,7 +949,74 @@ def generate_random_registro_voluntario_data(num_records=range(151,300)):
     
     return result
 
+def generate_random_reporte_data(num_records=50):
+    result = '-- Reporte\n'
 
+    sql_statements = []
+
+    for _ in range(num_records):
+        insert_statement = (
+            f"INSERT INTO Reporte"
+            f" VALUES ("
+            f"(SELECT TOP 1 id_incendio FROM Incendio ORDER BY NEWID()),"
+            f"(SELECT TOP 1 id_gobernacion FROM Gobernacion ORDER BY NEWID()),"
+            f"'{random.choice(['urgente', 'suma urgencia', 'preventivo'])}',"
+            f"'{random.choice(['Se require personal', 'Se requiere brigadas', 'Se necesita refuerzos', 'Se require personal de apoyo', 'Se requiere apoyo logistico'])}',"
+            f"'{generar_fecha_aleatoria('2014-01-01', '2025-01-01')}'"
+            f");"
+        )
+        sql_statements.append(insert_statement)
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
+
+def generate_random_alerta_data(num_records=50):
+    result = '-- Alerta\n'
+
+    sql_statements = []
+
+    for _ in range(num_records):
+        insert_statement = (
+            f"INSERT INTO Alerta"
+            f" VALUES ("
+            f"(SELECT TOP 1 id_organizacion FROM Organizacion ORDER BY NEWID()),"
+            f"(SELECT TOP 1 id_reporte FROM Reporte ORDER BY NEWID()),"
+            f"'{generar_fecha_aleatoria('2014-01-01', '2025-01-01')}',"
+            f"'{random.choice(['Se enviará personal', 'No se puede enviar personal', 'Se brindara apoyo', 'Se enviara recursos'])}'"
+            f");"
+        )
+        sql_statements.append(insert_statement)
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
+
+def generate_random_es_afectado_data(num_records=50):
+    result = '-- Es_Afectado\n'
+
+    sql_statements = []
+
+    for _ in range(num_records):
+        insert_statement = (
+            f"INSERT INTO Es_Afectado"
+            f" VALUES ("
+            f"(SELECT TOP 1 id_area FROM Area_Afectada ORDER BY NEWID()),"
+            f"(SELECT TOP 1 id_incendio FROM Incendio ORDER BY NEWID()),"
+            f"'{round((random.uniform(1000, 600000)),2)}'"
+            f");"
+        )
+        sql_statements.append(insert_statement)
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
 
 if __name__ == "__main__":
     
@@ -957,7 +1024,7 @@ if __name__ == "__main__":
     
     sql_statements = []
     
-    sql_statements.append(generate_random_incendio_data(num_records=30))
+    sql_statements.append(generate_random_incendio_data(num_records=60))
     sql_statements.append(generate_random_curso_data(num_records=30))
     sql_statements.append(generate_random_gobernacion_data())
     sql_statements.append(generate_random_alcaldia_data())
@@ -990,6 +1057,9 @@ if __name__ == "__main__":
     sql_statements.append('\nDECLARE @v_id_brigada INT;\n')
     sql_statements.append(generate_random_registro_oficial_data())
     sql_statements.append(generate_random_registro_voluntario_data())
+    sql_statements.append(generate_random_reporte_data())
+    sql_statements.append(generate_random_alerta_data())
+    sql_statements.append(generate_random_es_afectado_data())
     
     try:
         with open(f'database/schema/data_generator/{file_name}', 'w', encoding='utf-8') as f:

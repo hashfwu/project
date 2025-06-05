@@ -14,13 +14,13 @@ Medicamento✅
 Oficial✅
 Provee✅
 Registro_Brigada✅
-Reporte
+Reporte✅
 Respuesta
 Vehiculo✅
 Vivere✅
 Voluntario✅
 Alcaldia✅
-Alerta
+Alerta✅
 Capacita✅
 Dicta✅
 Dona✅
@@ -28,6 +28,6 @@ Municipio✅
 Participacion_Bombero
 Registro_Recurso
 Area_Afectada✅
-Es_Afectado
+Es_Afectado✅
 Afectado✅
 Bien✅

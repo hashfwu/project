@@ -245,7 +245,7 @@ CREATE TABLE Reporte (
 	id_incendio int,
 	id_gobernacion int,
 	caracter varchar(20),
-	mensaje varchar(20),
+	mensaje varchar(70),
 	fecha date,
 	PRIMARY KEY (id_reporte),
 	FOREIGN KEY (id_incendio) REFERENCES Incendio(id_incendio),
@@ -328,7 +328,7 @@ CREATE TABLE Alerta (
 	id_organizacion int NOT NULL,
 	id_reporte int NOT NULL,
 	fecha date,
-	respuesta varchar(30),
+	respuesta varchar(50),
 	PRIMARY KEY (id_organizacion,id_reporte),
 	FOREIGN KEY (id_organizacion) REFERENCES Organizacion(id_organizacion),
 	FOREIGN KEY (id_reporte) REFERENCES Reporte(id_reporte)
@@ -436,9 +436,11 @@ GO
 -- Tabla Es_Afectado
 
 CREATE TABLE Es_Afectado (
+	id_es_afectado int IDENTITY(1,1) NOT NULL,
 	id_area int,
 	id_incendio int,
 	costo_dano decimal(10,2),
+	PRIMARY KEY (id_es_afectado),
 	FOREIGN KEY (id_area) REFERENCES Area_Afectada(id_area),
 	FOREIGN KEY (id_incendio) REFERENCES Incendio(id_incendio)
 );
