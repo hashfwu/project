@@ -1018,6 +1018,33 @@ def generate_random_es_afectado_data(num_records=50):
     
     return result
 
+def generate_random_repuesta_data(num_records=60):
+    result = '-- Respuesta\n'
+
+    sql_statements = []
+    fecha_inicio = generar_fecha_aleatoria('2014-01-01', '2025-01-01')
+    fecha_fin = generar_fecha_aleatoria(fecha_inicio, '2025-01-01')
+
+    for _ in range(num_records):
+        insert_statement = (
+            f"INSERT INTO Respuesta"
+            f" VALUES ("
+            f"(SELECT TOP 1 id_brigada FROM Brigada ORDER BY NEWID()),"
+            f"(SELECT TOP 1 id_incendio FROM Incendio ORDER BY NEWID()),"
+            f"'{random.choice(['bunea', 'mala', 'regular'])}',"
+            f"'{fecha_inicio}',"
+            f"'{fecha_fin}',"
+            f"'{random.choice(["Se controlo incendio", "Se entrego viveres", "Se presto apoyo logistico","Se controló incendio", "Se extinguió incendio", "Incendio contenido", "Evacuación completada", "Apoyo aéreo prestado", "Asistencia médica brindada", "Se entregaron víveres", "Se prestó apoyo logístico", "Infraestructura protegida", "Zona segura establecida", "Búsqueda y rescate finalizada", "Operación de recuperación iniciada", "Retirada táctica", "Refuerzos desplegados", "Incendio en curso, se requiere más apoyo"])}'"
+            f");"
+        )
+        sql_statements.append(insert_statement)
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
+
 if __name__ == "__main__":
     
     file_name = 'output_data.sql'
@@ -1060,6 +1087,7 @@ if __name__ == "__main__":
     sql_statements.append(generate_random_reporte_data())
     sql_statements.append(generate_random_alerta_data())
     sql_statements.append(generate_random_es_afectado_data())
+    sql_statements.append(generate_random_repuesta_data())
     
     try:
         with open(f'database/schema/data_generator/{file_name}', 'w', encoding='utf-8') as f:
