@@ -841,6 +841,50 @@ def generate_random_provee_dinero_data(num_records=50):
     
     return result
 
+def generate_random_enfermedad_data(num_records=70):
+    result = '-- Enfermedad Base\n'
+
+    sql_statements = []
+
+    for _ in range(num_records):
+        insert_statement = (
+            f"INSERT INTO Enfermedad_Base"
+            f" VALUES ("
+            f"(SELECT TOP 1 id_bombero FROM Bombero ORDER BY NEWID()),"
+            f"'{random.choice(enfermedades)}'"
+            f");"
+        )
+        sql_statements.append(insert_statement)
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
+
+def generate_random_bien_data(num_records=70):
+    result = '-- Bien\n'
+
+    sql_statements = []
+
+    for _ in range(num_records):
+        insert_statement = (
+            f"INSERT INTO Bien"
+            f" VALUES ("
+            f"(SELECT TOP 1 id_afectado FROM Afectado ORDER BY NEWID()),"
+            f"'{random.choice(tipos_bien)}',"
+            f"'{random.choice(['grave', 'medio', 'leve'])}',"
+            f"{round(random.uniform(0, 10000), 2)}"
+            f");"
+        )
+        sql_statements.append(insert_statement)
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
+
 if __name__ == "__main__":
     
     file_name = 'output_data.sql'
@@ -875,6 +919,8 @@ if __name__ == "__main__":
     sql_statements.append(generate_random_provee_vehiculo_data())
     sql_statements.append(generate_random_provee_dinero_data())
     sql_statements.append('\nGO\n')
+    sql_statements.append(generate_random_enfermedad_data())
+    sql_statements.append(generate_random_bien_data())
     
     try:
         with open(f'database/schema/data_generator/{file_name}', 'w', encoding='utf-8') as f:

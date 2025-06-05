@@ -7,7 +7,7 @@ Recurso✅
 Brigada✅
 Dinero✅
 Donante✅
-Enfermedad_Base
+Enfermedad_Base✅
 Herramienta✅
 Instructor✅
 Medicamento✅
@@ -30,4 +30,4 @@ Registro_Recurso
 Area_Afectada✅
 Es_Afectado
 Afectado✅
-Bien
+Bien✅

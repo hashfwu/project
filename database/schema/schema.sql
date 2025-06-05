@@ -465,7 +465,7 @@ GO
 CREATE TABLE Bien (
 	id_bien int IDENTITY(1,1) NOT NULL,
 	id_afectado int,
-	tipo varchar(20),
+	tipo varchar(50),
 	magnitud_dano varchar(20),
 	costo_dano decimal(10,2),
 	PRIMARY KEY (id_bien),
