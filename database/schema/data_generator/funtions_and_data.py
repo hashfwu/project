@@ -777,3 +777,570 @@ nombre_brigadas = [
     "Brigada Candelaria Forestal",
     "Regimiento Río Grande"
 ]
+
+viveres = [
+    {
+        'nombre':'Agua embotellada',
+        'descripcion':'Botellas de agua purificada',
+        'marca':'Vishuddha',
+        'categoria':'liquido',
+        'medida':'ml'
+    },
+    {
+        'nombre':'Fideos tipo espagueti',
+        'descripcion':'Paquetes de pasta seca',
+        'marca':'Regal',
+        'categoria':'cereal',
+        'medida':'g'
+    },
+    {
+        'nombre':'Arroz blanco grano largo',
+        'descripcion':'Paquetes de arroz blanco',
+        'marca':'Sello de Oro',
+        'categoria':'grano',
+        'medida':'kg'
+    },
+    {
+        'nombre':'Latas de atún en aceite',
+        'descripcion':'Latas de atún conservado',
+        'marca':'Real',
+        'categoria':'pescado',
+        'medida':'g'
+    },
+    {
+        'nombre':'Frijol negro seco',
+        'descripcion':'Bolsas de frijol negro',
+        'marca':'Don Frijol',
+        'categoria':'cereal',
+        'medida':'g'
+    },
+    {
+        'nombre':'Leche en polvo entera',
+        'descripcion':'Bolsas de leche en polvo',
+        'marca':'Pil',
+        'categoria':'liquido',
+        'medida':'l'
+    },
+    {
+        'nombre':'Barras energéticas de cereal',
+        'descripcion':'Barras nutritivas de avena y frutas',
+        'marca':'PowerBar',
+        'categoria':'cereal',
+        'medida':'g'
+    },
+    {
+        'nombre':'Galletas de soda paquete',
+        'descripcion':'Paquetes de galletas saladas',
+        'marca':'Nawab',
+        'categoria':'cereal',
+        'medida':'g'
+    },
+    {
+        'nombre':'Aceite vegetal',
+        'descripcion':'Botellas de aceite de girasol',
+        'marca':'Fino',
+        'categoria':'liquido',
+        'medida':'ml'
+    },
+    {
+        'nombre': 'Sal fina yodada',
+        'descripcion': 'Bolsas de sal refinada yodada',
+        'marca': 'Sal Lobos',
+        'categoria':'mineral',
+        'medida':'kg'
+    },
+    {
+        'nombre': 'Harina de trigo',
+        'descripcion': 'Bolsas de harina de trigo blanca',
+        'marca': 'Don Mario',
+        'categoria':'cereal',
+        'medida':'kg'
+    },
+    {
+        'nombre': 'Lentejas secas',
+        'descripcion': 'Bolsas de lentejas seleccionadas',
+        'marca': 'La Granja',
+        'categoria':'cereal',
+        'medida':'kg'
+    },
+    {
+        'nombre': 'Sopa instantánea en sobre',
+        'descripcion': 'Sobres de sopa de fideos instantánea',
+        'marca': 'Maggi',
+        'categoria':'proteina',
+        'medida':'g'
+    },
+    {
+        'nombre': 'Café instantáneo',
+        'descripcion': 'Frascos de café soluble',
+        'marca': 'Nescafé',
+        'categoria':'grano',
+        'medida':'g'
+    },
+    {
+        'nombre': 'Té negro en sobres',
+        'descripcion': 'Cajas con bolsitas de té',
+        'marca': 'Hornimans',
+        'categoria':'liquido',
+        'medida':'g'
+    },
+    {
+        'nombre': 'Conserva de duraznos en almíbar',
+        'descripcion': 'Latas de duraznos en conserva',
+        'marca': 'La Costeña',
+        'categoria':'envasado',
+        'medida':'g'
+    },
+    {
+        'nombre': 'Jugo en caja',
+        'descripcion': 'Caja de jugo de frutas',
+        'marca': 'Del Valle',
+        'categoria':'liquido',
+        'medida':'l'
+    },
+    {
+        'nombre': 'Pan tostado en paquete',
+        'descripcion': 'Paquetes de pan crujiente tostado',
+        'marca': 'Bimbo',
+        'categoria':'cereal',
+        'medida':'g'
+    },
+    {
+        'nombre': 'Mermelada de fresa',
+        'descripcion': 'Frascos de mermelada artesanal',
+        'marca': 'La Campagnola',
+        'categoria':'postre',
+        'medida':'g'
+    }
+]
+medicamentos = [
+    {
+        'nombre': 'Omeprazol',
+        'descripcion': 'Inhibidor de la bomba de protones',
+        'medida': 'mg',
+        'contraindicaciones': 'Hipersensibilidad al omeprazol, insuficiencia hepática severa, embarazo sin indicación médica.',
+        'uso': 'vía oral, antes de las comidas'
+    },
+    {
+        'nombre': 'Amoxicilina',
+        'descripcion': 'Antibiótico de amplio espectro',
+        'medida': 'mg',
+        'contraindicaciones': 'Alergia a penicilinas o cefalosporinas, insuficiencia renal grave sin ajuste de dosis.',
+        'uso': 'vía oral, cada 8 horas'
+    },
+    {
+        'nombre': 'Ibuprofeno',
+        'descripcion': 'Antiinflamatorio no esteroideo',
+        'medida': 'mg',
+        'contraindicaciones': 'Úlcera gástrica activa, insuficiencia renal o hepática severa, antecedentes de sangrado gastrointestinal.',
+        'uso': 'vía oral, con alimentos'
+    },
+    {
+        'nombre': 'Jarabe para la tos',
+        'descripcion': 'Alivia la tos seca y con flema',
+        'medida': 'ml',
+        'contraindicaciones': 'Asma no controlada, hipersensibilidad a los componentes, uso simultáneo con inhibidores de la MAO.',
+        'uso': 'vía oral, según dosis recomendada por edad'
+    },
+    {
+        'nombre': 'Paracetamol',
+        'descripcion': 'Analgésico y antipirético',
+        'medida': 'mg',
+        'contraindicaciones': 'Enfermedad hepática severa, consumo excesivo de alcohol, alergia conocida al paracetamol.',
+        'uso': 'vía oral, cada 6-8 horas según necesidad'
+    },
+    {
+        'nombre': 'Salbutamol Inhalador',
+        'descripcion': 'Broncodilatador de acción rápida',
+        'medida': 'mcg/dosis',
+        'contraindicaciones': 'Arritmias severas, hipersensibilidad al salbutamol, hipertiroidismo no controlado.',
+        'uso': 'inhalar según indicación médica'
+    },
+    {
+        'nombre': 'Diclofenaco Inyectable',
+        'descripcion': 'Analgésico y antiinflamatorio inyectable',
+        'medida': 'mg',
+        'contraindicaciones': 'Úlcera péptica activa, insuficiencia cardíaca grave, antecedentes de reacciones alérgicas a AINEs.',
+        'uso': 'administrar por vía intramuscular'
+    },
+    {
+        'nombre': 'Solución Salina Isotónica',
+        'descripcion': 'Solución para administración intravenosa',
+        'medida': 'ml',
+        'contraindicaciones': 'Hipernatremia, edema pulmonar, insuficiencia renal sin control de electrolitos.',
+        'uso': 'administrar por vía intravenosa'
+    },
+    {
+        'nombre': 'Insulina NPH',
+        'descripcion': 'Insulina de acción intermedia',
+        'medida': 'UI',
+        'contraindicaciones': 'Hipoglucemia, hipersensibilidad a insulinas humanas o excipientes.',
+        'uso': 'administrar por vía subcutánea, según indicación médica'
+    },
+    {
+        'nombre': 'Crema para quemaduras',
+        'descripcion': 'Crema para aliviar quemaduras leves',
+        'medida': 'g',
+        'contraindicaciones': 'Alergia a sulfadiazina de plata u otros componentes; no usar en recién nacidos prematuros.',
+        'uso': 'aplicar sobre la piel limpia en la zona afectada'
+    },
+    {
+        'nombre':'Loratadina',
+        'descripcion':'Antihistamínico para alergias',
+        'medida':'mg',
+        'contraindicaciones':'Hipersensibilidad a la loratadina; precaución en insuficiencia hepática severa.',
+        'uso':'vía oral, una vez al día'
+    },
+    {
+        'nombre':'Metformina',
+        'descripcion':'Hipoglucemiante oral para diabetes tipo 2',
+        'medida':'mg',
+        'contraindicaciones':'Insuficiencia renal, acidosis metabólica, alcoholismo crónico.',
+        'uso':'vía oral, con alimentos'
+    },
+    {
+        'nombre':'Ranitidina',
+        'descripcion':'Antagonista H2 para reducir la acidez estomacal',
+        'medida':'mg',
+        'contraindicaciones':'Hipersensibilidad a ranitidina; uso prolongado sin diagnóstico médico puede enmascarar enfermedades graves.',
+        'uso':'vía oral, antes o después de las comidas'
+    },
+    {
+        'nombre':'Loperamida',
+        'descripcion':'Antidiarreico de acción periférica',
+        'medida':'mg',
+        'contraindicaciones':'Colitis ulcerosa aguda, diarrea causada por infecciones, niños menores de 2 años.',
+        'uso':'vía oral, después de cada evacuación'
+    },
+    {
+        'nombre':'Dexametasona',
+        'descripcion':'Corticosteroide antiinflamatorio y antialérgico',
+        'medida':'mg',
+        'contraindicaciones':'Infecciones sistémicas no tratadas, úlcera péptica activa, diabetes descompensada.',
+        'uso':'vía oral o inyectable, según prescripción médica'
+    },
+    {
+        'nombre':'Diazepam',
+        'descripcion':'Ansiolítico y anticonvulsivante',
+        'medida':'mg',
+        'contraindicaciones':'Insuficiencia respiratoria severa, apnea del sueño, glaucoma de ángulo cerrado, dependencia a benzodiacepinas.',
+        'uso':'vía oral, antes de dormir o según necesidad'
+    },
+    {
+        'nombre':'Clorfenamina',
+        'descripcion':'Antihistamínico para alergias y resfriados',
+        'medida':'mg',
+        'contraindicaciones':'Glaucoma, hipertrofia prostática, úlcera péptica estenosante, asma bronquial.',
+        'uso':'vía oral, cada 6 a 8 horas'
+    },
+    {
+        'nombre':'Ácido acetilsalicílico (Aspirina)',
+        'descripcion':'Analgésico, antipirético y antiinflamatorio',
+        'medida':'mg',
+        'contraindicaciones':'Úlcera activa, trastornos hemorrágicos, niños con infecciones virales (riesgo de síndrome de Reye).',
+        'uso':'vía oral, después de los alimentos'
+    },
+    {
+        'nombre':'Clotrimazol crema',
+        'descripcion':'Antifúngico tópico',
+        'medida':'g',
+        'contraindicaciones':'Hipersensibilidad al clotrimazol o a cualquiera de sus componentes; no usar en mucosas sin indicación médica.',
+        'uso':'aplicar sobre la piel limpia, 2 veces al día'
+    },
+    {
+        'nombre':'Carbón activado',
+        'descripcion':'Tratamiento de intoxicaciones orales',
+        'medida':'g',
+        'contraindicaciones':'Obstrucción intestinal, ingestión de sustancias corrosivas o hidrocarburos.',
+        'uso':'vía oral, disuelto en agua, según dosis de emergencia'
+    }
+]
+marca_medicamentos = [
+    'La Sante',
+    'MK',
+    'Chile',
+    'Takeda',
+    'Genfar',
+    'Sandoz',
+    'Baxter',
+    'Novo Nordisk',
+    'Dermaplast',
+]
+herramientas = [
+    {
+        'nombre': 'Motosierra Stihl MS 271',
+        'descripcion': 'Motosierra para corte de madera',
+        'tipo': 'corte y remoción'
+    },
+    {
+        'nombre': 'Pala de bombero con mango de fibra',
+        'descripcion': 'Pala resistente para remover escombros',
+        'tipo': 'remoción de escombros'
+    },
+    {
+        'nombre': 'Hacha de bombero con cabeza de acero',
+        'descripcion': 'Hacha para abrirse paso y cortar',
+        'tipo': 'penetración y corte'
+    },
+    {
+        'nombre': 'Manguera contra incendios de 15 metros',
+        'descripcion': 'Manguera de alta presión con conexiones',
+        'tipo': 'control de incendios'
+    },
+    {
+        'nombre': 'Casco de bombero con visor',
+        'descripcion': 'Equipo de protección personal',
+        'tipo': 'protección personal'
+    },
+    {
+        'nombre': 'Linterna frontal LED de alta potencia',
+        'descripcion': 'Iluminación manos libres',
+        'tipo': 'iluminación'
+    },
+    {
+        'nombre': 'Radio portátil de comunicación bidireccional',
+        'descripcion': 'Comunicación entre equipos',
+        'tipo': 'comunicación'
+    },
+    {
+        'nombre': 'Kit de herramientas de rescate hidráulico',
+        'descripcion': 'Equipo para abrir vehículos accidentados',
+        'tipo': 'rescate vehicular'
+    },
+    {
+        'nombre': 'Detector de gases multi-gas',
+        'descripcion': 'Equipo para medir niveles de gases peligrosos',
+        'tipo': 'detección de gases'
+    },
+    {
+        'nombre': 'Botiquín de primeros auxilios avanzado',
+        'descripcion': 'Kit completo para atención inicial',
+        'tipo': 'atención médica inicial'
+    },
+    {
+        'nombre': 'Camilla rígida tipo cuchara',
+        'descripcion': 'Camilla para inmovilización y transporte de heridos',
+        'tipo': 'traslado de víctimas'
+    },
+    {
+        'nombre': 'Guantes de trabajo resistentes al corte',
+        'descripcion': 'Guantes de protección para manipulación de objetos peligrosos',
+        'tipo': 'protección personal'
+    },
+    {
+        'nombre': 'Cuerda de rescate de 30 metros',
+        'descripcion': 'Cuerda resistente para operaciones de rescate y descenso',
+        'tipo': 'rescate vertical'
+    },
+    {
+        'nombre': 'Toldo impermeable de emergencia',
+        'descripcion': 'Protección temporal contra clima extremo',
+        'tipo': 'refugio temporal'
+    },
+    {
+        'nombre': 'Extintor portátil ABC de 6 kg',
+        'descripcion': 'Extintor para múltiples tipos de fuego',
+        'tipo': 'control de incendios'
+    },
+    {
+        'nombre': 'Cizalla hidráulica portátil',
+        'descripcion': 'Herramienta para cortar metales en operaciones de rescate',
+        'tipo': 'rescate vehicular'
+    },
+    {
+        'nombre': 'GPS portátil resistente al agua',
+        'descripcion': 'Sistema de localización para operaciones en campo',
+        'tipo': 'navegación y localización'
+    },
+    {
+        'nombre': 'Equipo de respiración autónomo (ERA)',
+        'descripcion': 'Proporciona aire limpio en zonas con humo o gases tóxicos',
+        'tipo': 'protección respiratoria'
+    },
+    {
+        'nombre': 'Martillo multipropósito de emergencia',
+        'descripcion': 'Martillo con funciones de rompedor de vidrios y cortacinturones',
+        'tipo': 'rescate y evacuación'
+    },
+    {
+        'nombre': 'Bolsa seca impermeable 20L',
+        'descripcion': 'Bolsa para proteger equipos sensibles al agua',
+        'tipo': 'almacenamiento seguro'
+    }
+]
+
+marca_herramientas = [
+    'Stihl',
+    'Truper',
+    'Estwing',
+    'Angus Fire',
+    'MSA',
+    'Petzl',
+    'Motorola',
+    'Lukas',
+    'BW Technologies',
+    'Curad'
+]
+
+def generar_cadena_aleatoria(longitud):
+    caracteres = string.ascii_letters + string.digits
+    cadena = ''.join(random.choice(caracteres) for _ in range(longitud))
+    return cadena
+
+def generar_numero_serie():
+    serie_uno = str(random.randint(1000, 9999))
+    serie_dos = generar_cadena_aleatoria(4)
+    return serie_uno + '-' + serie_dos
+
+def generar_placa():
+    serie_uno = str(random.randint(1000, 9999))
+    serie_dos = generar_cadena_aleatoria(4).upper()
+    return serie_uno + '-' + serie_dos
+
+vehiculos = [
+    {
+        'descripcion':'Helicóptero para descarga de agua',
+        'tipo':'helicoptero'
+    },
+    {
+        'descripcion':'Camión para transporte y descarga de agua',
+        'tipo':'camion'
+    },
+    {
+        'descripcion':'Avión de carga para extinción aérea',
+        'tipo':'avion'
+    },
+    {
+        'descripcion':'Vehículo ligero para acceso rápido',
+        'tipo':'todoterreno'
+    },
+    {
+        'descripcion':'Maquinaria pesada para limpieza de áreas',
+        'tipo':'maquinaria'
+    },
+    {
+        'descripcion':'Camión para transporte de madera quemada',
+        'tipo':'camion'
+    },
+    {
+        'descripcion':'Vehículo ágil para inspección de áreas',
+        'tipo':'todoterreno'
+    },
+    {
+        'descripcion':'Vehículo para atención médica de emergencia',
+        'tipo':'ambulancia'
+    },
+    {
+        'descripcion':'Maquinaria para crear cortafuegos',
+        'tipo':'camnion bombero'
+    },
+    {
+        'descripcion':'Vehículo aéreo no tripulado para vigilancia',
+        'tipo':'dron'
+    },
+    {
+        'descripcion': 'Camión cisterna para abastecimiento de agua en zonas remotas',
+        'tipo': 'camion'
+    },
+    {
+        'descripcion': 'Vehículo de rescate técnico con equipo hidráulico',
+        'tipo': 'rescate'
+    },
+    {
+        'descripcion': 'Quad o ATV para acceso en terrenos difíciles',
+        'tipo': 'atv'
+    },
+    {
+        'descripcion': 'Camión escalera para rescate en alturas',
+        'tipo': 'camion bombero'
+    },
+    {
+        'descripcion': 'Ambulancia todoterreno para evacuación en campo',
+        'tipo': 'ambulancia'
+    },
+    {
+        'descripcion': 'Motocicleta de primeros auxilios rápida',
+        'tipo': 'motocicleta'
+    },
+    {
+        'descripcion': 'Vehículo comando móvil para coordinación en sitio',
+        'tipo': 'comando'
+    },
+    {
+        'descripcion': 'Barco de rescate para operaciones en zonas inundadas',
+        'tipo': 'lancha'
+    },
+    {
+        'descripcion': 'Bulldozer para remoción de escombros y apertura de caminos',
+        'tipo': 'maquinaria'
+    },
+    {
+        'descripcion': 'Helicóptero de evacuación médica con soporte vital',
+        'tipo': 'helicoptero'
+    }
+]
+
+modelo_vehiculos = [
+    'Haylux'
+    'Actros 2645'
+    'AT-802F'
+    'Hilux'
+    'D7R'
+    'FH16'
+    'CRF250L'
+    'Transit'
+    '8345R'
+    'Mavic 3T'
+    'CAT 320D',
+    'Komatsu D155AX',
+    'JCB 3CX',
+    'Volvo L120H',
+    'John Deere 772GP',
+    'Hamm HD+ 90i',
+    'Liebherr LR 1300',
+    'Case IH Axial-Flow 7150',
+    'Terex RT 100',
+    'Bobcat S770'
+]
+marca_vehiculos = [
+    'Toyota',
+    'Mercedes-Benz',
+    'Air Tractor',
+    'Caterpillar',
+    'Volvo',
+    'Honda',
+    'Ford',
+    'John Deere',
+    'DJI',
+    'Komatsu',
+    'JCB',
+    'Liebherr',
+    'Case IH',
+    'Terex',
+    'Bobcat',
+    'Man',
+    'Scania',
+    'Iveco',
+    'Oshkosh',
+    'Rosenbauer',
+    'Bell Helicopter',
+    'Eurocopter (Airbus Helicopters)',
+    'Zodiac Milpro',
+    'Polaris',
+    'Can-Am',
+    'Chevrolet',
+    'Nissan'
+]
+colores = [
+    'azul',
+    'verde',
+    'naranja',
+    'rojo',
+    'celeste',
+    'plomo',
+    'negro',
+    'gris',
+    'blanco',
+    'amarillo',
+    'lima'
+]

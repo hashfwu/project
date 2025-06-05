@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE insertar_dinero_sp (
+CREATE OR ALTER PROCEDURE register_dinero_sp (
     @nombre_recurso VARCHAR(100),
     @disponibilidad VARCHAR(20),
     @descripcion VARCHAR(100),

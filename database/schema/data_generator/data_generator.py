@@ -518,26 +518,141 @@ def generate_random_brigada_data():
     
     return result
 
-def generate_random_vivere_data(num_records=100):
+def generate_random_vivere_data(num_records=50):
     result = '-- Vivere\n'
 
     sql_statements = []
 
     for _ in range(num_records):
-        fecha_inicio = generar_fecha_aleatoria('2015-01-01', '2024-01-01')
-        fecha_fin = generar_fecha_aleatoria(fecha_inicio, '2024-01-01')
+        vivere = random.choice(viveres)
         insert_statement = (
             f"EXEC register_vivere_sp "
-            f"{random.choice(nombres_recurso)},"
-            f"{random.choice(['disponible', 'no disponible'])},"
-            f"{random.choice(descripciones_recurso)},"
-            f"{random.choice(marcas_recursos)},"
-            f"{random.choice(['bueno', 'malo'])},"
-            f"{random.choice(['mg', 'kg'])},"
-            f"{random.uniform(10,100)},"
+            f"'{vivere['nombre']}',"
+            f"'{random.choice(['disponible', 'no disponible'])}',"
+            f"'{vivere['descripcion']}',"
+            f"'{vivere['marca']}',"
+            f"'{random.choice(['bueno', 'malo', 'regular'])}',"
+            f"'{vivere['medida']}',"
+            f"{random.uniform(10,100):.2f},"
             f"{random.randint(2,100)},"
-            f"{generar_fecha_aleatoria('2024-01-01', '2028-01-01')},"
-            f");"
+            f"'{vivere['categoria']}',"
+            f"'{generar_fecha_aleatoria('2024-01-01', '2028-01-01')}'"
+            f";"
+        )
+        sql_statements.append(insert_statement)
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
+
+def generate_random_medicamento_data(num_records=50):
+    result = '-- Medicamento\n'
+
+    sql_statements = []
+
+    for _ in range(num_records):
+        medicamento = random.choice(medicamentos)
+        insert_statement = (
+            f"exec register_medicamento_sp "
+            f"'{medicamento['nombre']}',"
+            f"'{random.choice(['disponible', 'no disponible'])}',"
+            f"'{medicamento['descripcion']}',"
+            f"'{random.choice(marca_medicamentos)}',"
+            f"'{random.choice(['bueno', 'malo', 'regular'])}',"
+            f"'{medicamento['uso']}',"
+            f"'{generar_fecha_aleatoria('2024-01-01', '2028-01-01')}',"
+            f"'{medicamento['medida']}',"
+            f"{random.uniform(10,100):.2f},"
+            f"{random.randint(2,100)},"
+            f"'{medicamento['contraindicaciones']}'"
+            f";"
+        )
+        sql_statements.append(insert_statement)
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
+
+def generate_random_herramienta_data(num_records=50):
+    result = '-- Herramienta\n'
+
+    sql_statements = []
+
+    for _ in range(num_records):
+        herramienta = random.choice(herramientas)
+        insert_statement = (
+            f"exec register_herramienta_sp "
+            f"'{herramienta['nombre']}',"
+            f"'{random.choice(['disponible', 'no disponible'])}',"
+            f"'{herramienta['descripcion']}',"
+            f"'{random.choice(marca_herramientas)}',"
+            f"'{random.choice(['bueno', 'malo', 'regular'])}',"
+            f"{random.randint(1,20)},"
+            f"'{generar_numero_serie()}',"
+            f"'{herramienta['tipo']}'"
+            f";"
+        )
+        sql_statements.append(insert_statement)
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
+
+def generate_random_vehiculo_data(num_records=50):
+    result = '-- Vehiculo\n'
+
+    sql_statements = []
+
+    for _ in range(num_records):
+        vehiculo = random.choice(vehiculos)
+        modelo = random.choice(modelo_vehiculos)
+        nombre = vehiculo['tipo'] + ' ' + modelo
+        insert_statement = (
+            f"exec register_vehiculo_sp "
+            f"'{nombre}',"
+            f"'{random.choice(['disponible', 'no disponible'])}',"
+            f"'{vehiculo['descripcion']}',"
+            f"'{random.choice(marca_vehiculos)}',"
+            f"'{random.choice(['bueno', 'malo', 'regular'])}',"
+            f"'{generar_placa()}',"
+            f"'{vehiculo['tipo']}',"
+            f"'{modelo}',"
+            f"{random.randint(1980, 2020)},"
+            f"'{random.choice(colores)}'"
+            f";"
+        )
+        sql_statements.append(insert_statement)
+    for statement in sql_statements:
+        result += '\n' + statement
+
+    result += '\n'
+    
+    return result
+
+def generate_random_dinero_data(num_records=50):
+    result = '-- Dinero\n'
+
+    sql_statements = []
+
+    for _ in range(num_records):
+        monto = random.randint(100, 5000)
+        moneda = random.choice(['bolivianos', 'dolares', 'euros'])
+        insert_statement = (
+            f"exec register_dinero_sp "
+            f"'Monto {moneda} {monto}',"
+            f"'{random.choice(['disponible', 'no disponible'])}',"
+            f"NULL,"
+            f"NULL,"
+            f"NULL,"
+            f"'{monto}',"
+            f"'{moneda}'"
+            f";"
         )
         sql_statements.append(insert_statement)
     for statement in sql_statements:
@@ -567,6 +682,11 @@ if __name__ == "__main__":
     sql_statements.append(generate_random_capacita_data())
     sql_statements.append(generate_random_dicta_data())
     sql_statements.append(generate_random_brigada_data())
+    sql_statements.append(generate_random_vivere_data())
+    sql_statements.append(generate_random_medicamento_data())
+    sql_statements.append(generate_random_herramienta_data())
+    sql_statements.append(generate_random_vehiculo_data())
+    sql_statements.append(generate_random_dinero_data())
     
     try:
         with open(f'database/schema/data_generator/{file_name}', 'w', encoding='utf-8') as f:
