@@ -1,0 +1,165 @@
+{% extends "layout/layout_1.html" %}
+
+{% block title %}Afectado{% endblock %}
+
+{% block hero %}
+
+    <section class="bg-dark text-white py-5">
+      <div class="container py-4">
+        <div class="text-center">
+          <h2 class="display-5 fw-bold mb-4">Reporte sus perdidas en cualquier momento</h2>
+          <p class="lead mb-5">Nuestro sistema le permite realizar reportes de perdidas según el área al que pertenece</p>
+        </div>
+      </div>
+    </section>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="form-container bg-white p-4 p-md-5 rounded-4 shadow-lg">
+            <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab" aria-controls="login" aria-selected="true">Iniciar Sesión</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button" role="tab" aria-controls="register" aria-selected="false">Registrarse</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+                    <h3 class="mb-4 text-center">Iniciar Sesión</h3>
+                    <form action="{{ url_for('afectado.login') }}" method="post"> {# Agregado action y method #}
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control" id="loginEmail" name="email" aria-describedby="emailHelp" required> {# Agregado name="email" #}
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="loginPassword" name="password" required> {# Agregado name="password" #}
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Entrar</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+
+                    <h3 class="mb-4 text-center">Registrarse</h3>
+                    <form action="{{ url_for('afectado.register') }}" method="post" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="registerCi" class="form-label">CI</label>
+                            <input type="text" class="form-control" id="registerCi" name="ci" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="registerExpedido" class="form-label">Expedido</label>
+                            <select class="form-select" id="registerExpedido" name="expedido" required>
+                                <option value="" disabled selected>Seleccione...</option>
+                                <option value="LP">LP</option>
+                                <option value="SCZ">SCZ</option>
+                                <option value="CBBA">CBBA</option>
+                                <option value="OR">OR</option>
+                                <option value="PT">PT</option>
+                                <option value="CH">CH</option>
+                                <option value="TJA">TJA</option>
+                                <option value="BE">BE</option>
+                                <option value="PD">PD</option>
+                                <option value="EX">EX</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="registerPaterno" class="form-label">Apellido Paterno</label>
+                            <input type="text" class="form-control" id="registerPaterno" name="paterno" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="registerMaterno" class="form-label">Apellido Materno</label>
+                            <input type="text" class="form-control" id="registerMaterno" name="materno" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="registerNombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="registerNombre" name="nombre" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="registerSexo" class="form-label">Sexo</label>
+                            <select class="form-select" id="registerSexo" name="sexo" required>
+                                <option value="" disabled selected>Seleccione...</option>
+                                <option value="masculino">Masculino</option>
+                                <option value="femenino">Femenino</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="registerNacimiento" class="form-label">Nacimiento</label>
+                            <input type="date" class="form-control" id="registerNacimiento" name="nacimiento" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="registerTelefono" class="form-label">Teléfono</label>
+                            <input type="tel" class="form-control" id="registerTelefono" name="telefono" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="registerEmail" class="form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control" id="registerEmail" name="email" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="registerUbicacion" class="form-label">Ubicación del domicilio</label>
+                            <input type="text" class="form-control" id="registerUbicacion" name="ubicacion" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="registerCondicion" class="form-label">Condición del afectado</label>
+                            <input type="text" class="form-control" id="registerCondicion" name="condicion" required>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">Registrar</button>
+                        </div>
+                        <div class="d-grid mt-2">
+                            <button type="button" class="btn btn-secondary" onclick="limpiarFormulario(this.form)">Limpiar</button>
+                        </div>
+                    </form>
+               </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.getElementById('registerCi').addEventListener('blur', function () {
+        const ci = this.value;
+
+        if (ci) {
+            fetch(`{{ url_for('afectado.buscar_ci') }}?ci=${ci}`)
+                .then(response => {
+                    if (!response.ok) throw new Error('No encontrado');
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById('registerExpedido').value = data.expedido || '';
+                    document.getElementById('registerPaterno').value = data.paterno || '';
+                    document.getElementById('registerMaterno').value = data.materno || '';
+                    document.getElementById('registerNombre').value = data.nombre || '';
+                    document.getElementById('registerSexo').value = data.sexo || '';
+                    document.getElementById('registerNacimiento').value = data.nacimiento || '';
+                })
+                .catch(error => {
+                    console.log('No se encontró el CI o error en la búsqueda');
+                });
+        }
+    });
+    </script>
+    <script>
+    function limpiarFormulario(formElement) {
+        formElement.reset();
+
+        const selects = formElement.querySelectorAll("select");
+        selects.forEach(select => select.selectedIndex = 0);
+    }
+    </script>
+{% endblock %}

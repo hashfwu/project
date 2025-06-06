@@ -1,4 +1,8 @@
 NAVBARS = {
+    'empty-afectado': {
+        'title': 'Afectado',
+        'items_exists': False
+    },
     'afectado-narvar': {
         'title': 'Afectado',
         'items_exists': True,

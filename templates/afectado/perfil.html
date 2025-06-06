@@ -1,0 +1,151 @@
+{% extends "layout/layout_1.html" %}
+
+{% block title %}Afectado{% endblock %}
+
+{% block hero %}
+
+<section class="bg-dark text-white py-5">
+    <div class="container py-4">
+        <div class="text-center">
+            <h2 class="display-5 fw-bold mb-4">Reporte sus perdidas en cualquier momento</h2>
+            <p class="lead mb-5">Nuestro sistema le permite realizar reportes de perdidas según el área al que pertenece
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<!-- Historial -->
+<section id="historial" class="mb-5">
+    <div class="bg-white p-4 p-md-5 rounded-4 shadow-lg">
+        <h2 class="mb-4 fw-bold">Historial de Pérdidas Reportadas</h2>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th>Bien</th>
+                        <th>Magnitud del daño</th>
+                        <th>Costo daño</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% if datos_perdidas %}
+                    {% for row in datos_perdidas %}
+                    <tr id="row-{{ row[0] }}">
+                        <!-- Vista normal (lectura) -->
+                        <td class="bien">{{ row[1] }}</td>
+                        <td class="magnitud">{{ row[2] }}</td>
+                        <td class="costo">{{ row[3] }}</td>
+                        <td class="text-center acciones">
+                            <button class="btn btn-sm btn-primary" onclick="activarEdicion({{ row[0] }})">Editar</button>
+                            <form action="{{ url_for('afectado.eliminar_perdida', id_bien=row[0], id_afectado=id_afectado) }}" method="POST" style="display:inline;">
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar?');">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+
+                    <tr id="edit-row-{{ row[0] }}" style="display: none;">
+                        <form action="{{ url_for('afectado.editar_perdida', id_bien=row[0], id_afectado=id_afectado) }}" method="POST">
+                            <td><input type="text" name="bien" class="form-control" value="{{ row[1] }}"></td>
+                            <td><input type="text" name="magnitud" class="form-control" value="{{ row[2] }}"></td>
+                            <td><input type="number" name="costo" class="form-control" value="{{ row[3] }}"></td>
+                            <td class="text-center">
+                                <button type="submit" class="btn btn-sm btn-success">Guardar</button>
+                                <button type="button" class="btn btn-sm btn-secondary" onclick="cancelarEdicion({{ row[0] }})">Cancelar</button>
+                            </td>
+                        </form>
+                    </tr>
+                    {% endfor %}
+                {% endif %}
+                    {% if not datos_perdidas %}
+                    <tr id="row-message">
+                        <td colspan="4" class="text-center">
+                            No hay registros para mostrar
+                        </td>
+                    </tr>
+                    {% endif %}
+                    <tr id="register-bien-button">
+                        <td colspan="4" class="text-center">
+                            <button type="button" class="btn btn-sm btn-primary" onclick="activarRegistro()">Registrar nueva pérdida</button>
+                        </td>
+                    </tr>
+                    <tr id="register-bien" style="display: none;">
+                        <form action="{{ url_for('afectado.registrar_perdida', id_afectado=id_afectado) }}" method="post">
+                            <td><input type="text" name="bien" class="form-control" placeholder="Bien" required></td>
+                            <td><input type="text" name="magnitud" class="form-control" placeholder="Magnitud del daño" required></td>
+                            <td><input type="number" name="costo" class="form-control" placeholder="Costo" required></td>
+                            <td class="text-center">
+                                <button type="submit" class="btn btn-sm btn-success">Guardar</button>
+                                <button type="button" class="btn btn-sm btn-secondary" onclick="cancelarRegistro()">Cancelar</button>
+                            </td>
+                        </form>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Estadísticas -->
+<section id="estadisticas" class="mb-5">
+    <div class="bg-white p-4 p-md-5 rounded-4 shadow-lg">
+        <h2 class="mb-4 fw-bold">Estadísticas de Pérdidas</h2>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Total de pérdidas reportadas: <strong>5</strong></li>
+            <li class="list-group-item">Valor total de pérdidas: <strong>Bs. 238,700.00</strong></li>
+            <li class="list-group-item">Pérdidas aprobadas: <strong>2</strong> (Bs. 83,700.00)</li>
+            <li class="list-group-item">Pérdidas en revisión: <strong>2</strong> (Bs. 152,000.00)</li>
+            <li class="list-group-item">Pérdidas rechazadas: <strong>1</strong> (Bs. 75,000.00)</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Ayuda -->
+<section id="ayuda" class="mb-5">
+    <div class="bg-white p-4 p-md-5 rounded-4 shadow-lg">
+        <h2 class="mb-4 fw-bold">Ayuda y Soporte</h2>
+
+        <h3 class="h5 mb-3">¿Cómo reportar una pérdida?</h3>
+        <ol class="mb-4">
+            <li>Complete todos los campos del formulario de reporte</li>
+            <li>Proporcione la mayor cantidad de detalles posibles</li>
+            <li>Adjunte fotografías o documentos de respaldo si es posible</li>
+            <li>Haga clic en "Enviar Reporte"</li>
+        </ol>
+
+        <h3 class="h5 mb-3">¿Qué hacer después de reportar?</h3>
+        <ul>
+            <li>Recibirá un número de seguimiento</li>
+            <li>La alcaldía se comunicará para verificación</li>
+            <li>Puede consultar el estado en esta plataforma</li>
+        </ul>
+    </div>
+</section>
+
+<script>
+    function activarEdicion(id) {
+        document.getElementById(`row-${id}`).style.display = 'none';
+        document.getElementById(`edit-row-${id}`).style.display = 'table-row';
+    }
+
+    function cancelarEdicion(id) {
+        document.getElementById(`edit-row-${id}`).style.display = 'none';
+        document.getElementById(`row-${id}`).style.display = 'table-row';
+    }
+
+    function activarRegistro() {
+        document.getElementById(`register-bien-button`).style.display = 'none';
+        document.getElementById(`row-message`).style.display = 'none';
+        document.getElementById(`register-bien`).style.display = 'table-row';
+    }
+
+    function cancelarRegistro() {
+        document.getElementById(`register-bien`).style.display = 'none';
+        document.getElementById(`register-bien-button`).style.display = 'table-row';
+        document.getElementById(`row-message`).style.display = 'table-row';
+    }
+</script>
+{% endblock %}
