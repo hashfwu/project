@@ -75,8 +75,16 @@
                     <tr id="register-bien" style="display: none;">
                         <form action="{{ url_for('afectado.registrar_perdida', id_afectado=id_afectado) }}" method="post">
                             <td><input type="text" name="bien" class="form-control" placeholder="Bien" required></td>
-                            <td><input type="text" name="magnitud" class="form-control" placeholder="Magnitud del daño" required></td>
-                            <td><input type="number" name="costo" class="form-control" placeholder="Costo" required></td>
+                            <td>
+                              <select name="magnitud" class="form-control" required>
+                                <option value="" disabled selected>Selecciona la magnitud del daño</option>
+                                <option value="leve">Leve</option>
+                                <option value="moderado">Moderado</option>
+                                <option value="grave">Grave</option>
+                                <option value="critico">Crítico</option>
+                              </select>
+                            </td>
+                            <td><input type="number" name="costo" class="form-control" placeholder="Costo en bolivianos" required></td>
                             <td class="text-center">
                                 <button type="submit" class="btn btn-sm btn-success">Guardar</button>
                                 <button type="button" class="btn btn-sm btn-secondary" onclick="cancelarRegistro()">Cancelar</button>
@@ -111,16 +119,16 @@
         <h3 class="h5 mb-3">¿Cómo reportar una pérdida?</h3>
         <ol class="mb-4">
             <li>Complete todos los campos del formulario de reporte</li>
-            <li>Proporcione la mayor cantidad de detalles posibles</li>
-            <li>Adjunte fotografías o documentos de respaldo si es posible</li>
-            <li>Haga clic en "Enviar Reporte"</li>
+            <li>Proporcione el monto en Bolivianos</li>
+            <li>Diga que tan fuerte fue el daño en ese bien</li>
+            <li>Haga clic en "Guardar"</li>
         </ol>
 
         <h3 class="h5 mb-3">¿Qué hacer después de reportar?</h3>
         <ul>
-            <li>Recibirá un número de seguimiento</li>
-            <li>La alcaldía se comunicará para verificación</li>
-            <li>Puede consultar el estado en esta plataforma</li>
+            <li>El reporte irá a las autoridades pertinentes</li>
+            <li>La alcaldía se comunicará a travez de su numero o correo electrónico proporcionado</li>
+            <li>Puede seguir reportanto perididas en esta plataforma</li>
         </ul>
     </div>
 </section>
