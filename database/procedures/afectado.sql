@@ -19,17 +19,24 @@ BEGIN
     SET NOCOUNT ON;
     BEGIN TRY
         BEGIN TRANSACTION;
+        IF NOT EXISTS (
+            SELECT 1 FROM Persona
+            WHERE Persona.ci = @ci_persona
+        )
 
-        INSERT INTO Persona (ci, expedido, paterno, materno, nombre, sexo, fecha_nacimiento)
-        VALUES (
-            @ci_persona,
-            @expedido_persona,
-            @paterno_persona,
-            @materno_persona,
-            @nombre_persona,
-            @sexo_persona,
-            @fecha_nacimiento_persona
-        );
+        BEGIN
+            INSERT INTO Persona (ci, expedido, paterno, materno, nombre, sexo, fecha_nacimiento)
+            VALUES (
+                @ci_persona,
+                @expedido_persona,
+                @paterno_persona,
+                @materno_persona,
+                @nombre_persona,
+                @sexo_persona,
+                @fecha_nacimiento_persona
+            );
+
+        END;
 
         INSERT INTO Afectado (ci, id_area, telefono, email, ubicacion_domicilio, condicion)
         VALUES (
@@ -41,14 +48,15 @@ BEGIN
             @condicion_afectado
         );
 
+        SELECT SCOPE_IDENTITY() AS NewAfectadoId;
+
         COMMIT TRANSACTION;
     END TRY
     BEGIN CATCH
         IF @@TRANCOUNT > 0
             ROLLBACK TRANSACTION;
 
-        DECLARE @ErrorMessage NVARCHAR(MAX), @ErrorSeverity INT, @ErrorState INT;
-        SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE();
+        DECLARE @ErrorMessage NVARCHAR(MAX), @ErrorSeverity INT, @ErrorState INT;        SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE();
         RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH;
 END;

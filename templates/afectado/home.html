@@ -102,6 +102,11 @@
                         </div>
 
                         <div class="mb-3">
+                            <label for="registerIdArea" class="form-label">ID Area</label>
+                            <input type="number" class="form-control" id="registerIdArea" name="id_area" required>
+                        </div>
+
+                        <div class="mb-3">
                             <label for="registerTelefono" class="form-label">Teléfono</label>
                             <input type="tel" class="form-control" id="registerTelefono" name="telefono" required>
                         </div>
@@ -173,6 +178,11 @@
                         const field = document.getElementById(fieldId);
                         if (field) {
                             if (field.tagName === 'SELECT') {
+                                const hidden = document.createElement('input');
+                                hidden.type = 'hidden';
+                                hidden.name = field.name;
+                                hidden.value = field.value;
+                                field.form.appendChild(hidden);
                                 field.disabled = true;
                             } else {
                                 field.readOnly = true;

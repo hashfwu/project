@@ -20,7 +20,6 @@ def buscar_ci():
         )
         persona = cursor.fetchone()
         if persona:
-            # persona = (expedido, paterno, materno, nombre, sexo, nacimiento)
             return jsonify({
                 'expedido': persona[0],
                 'paterno': persona[1],
@@ -137,31 +136,52 @@ def register():
         ci = request.form['ci']
         expedido = request.form['expedido']
         paterno = request.form['paterno']
+        materno = request.form['materno']
+        nombre = request.form['nombre']
+        sexo = request.form['sexo']
+        nacimiento = request.form['nacimiento']
+        id_area = request.form['id_area']
+        telefono = request.form['telefono']
+        email = request.form['email']
+        ubicacion = request.form['ubicacion']
+        condicion = request.form['condicion']
         
         conn = get_connection()
         cursor = conn.cursor()
         try:
             cursor.execute(
-                "INSERT INTO Persona (ci, expedido, paterno, materno, nombre, sexo, fecha_nacimiento) "
-                "VALUES (?, ?, ?, ?, ?, ?, ?)",
-                (ci, expedido, paterno, request.form['materno'], 
-                 request.form['nombre'], request.form['sexo'], 
-                 request.form['fecha_nacimiento'])
+                "EXEC register_afectado_sp "
+                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?",
+                (
+                    ci,
+                    expedido,
+                    paterno,
+                    materno,
+                    nombre,
+                    sexo,
+                    nacimiento,
+                    id_area,
+                    telefono,
+                    email,
+                    ubicacion,
+                    condicion
+                )
             )
-            cursor.execute(
-                "INSERT INTO Afectado (ci, telefono, ubicacion_domicilio, email, condicion, idioma) "
-                "VALUES (?, ?, ?, ?, ?, ?)",
-                (ci, request.form['telefono'], request.form['ubicacion'], 
-                 request.form['email'], request.form['condicion'], 
-                 request.form['idioma'])
-            )
-            
+            result = cursor.fetchone()
+            new_afectado_id = None
+            if result:
+                new_afectado_id = result[0]
+
             conn.commit()
-            return redirect(url_for('afectado.iniciar_sesion'))
+
+            if new_afectado_id is not None:
+                flash(f'Se registró exitosamente al afectado con ID: {int(new_afectado_id)}.', 'success')
+            else:
+                flash('Se registró exitosamente (ID no disponible).', 'success')
+            return redirect(url_for('afectado.home'))
         except Exception as e:
             conn.rollback()
             return f"Error al registrar: {str(e)}"
         finally:
             conn.close()
-    
-    return render_template('afectado/registro.html')
+    return redirect(url_for('afectado.home'))
