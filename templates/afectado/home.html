@@ -45,6 +45,9 @@
                 <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
 
                     <h3 class="mb-4 text-center">Registrarse</h3>
+
+                    <div id="mensaje-ci" class="alert alert-success d-none" role="alert"></div>
+
                     <form action="{{ url_for('afectado.register') }}" method="post" class="needs-validation" novalidate>
                         <div class="mb-3">
                             <label for="registerCi" class="form-label">CI</label>
@@ -137,29 +140,83 @@
         if (ci) {
             fetch(`{{ url_for('afectado.buscar_ci') }}?ci=${ci}`)
                 .then(response => {
-                    if (!response.ok) throw new Error('No encontrado');
+                    if (!response.ok) {
+                        limpiarYRestaurarCampos();
+                        throw new Error('No encontrado');
+                    }
                     return response.json();
                 })
                 .then(data => {
+
+                    const mensajeCi = document.getElementById('mensaje-ci');
+                    mensajeCi.textContent = 'Se encontraron datos que coinciden con su carnet. Puede editarlos luedo de iniciar sesion.';
+                    mensajeCi.classList.remove('d-none');
+                    mensajeCi.classList.add('alert-success');
+
+                    const fieldsToLock = [
+                        'registerExpedido',
+                        'registerPaterno',
+                        'registerMaterno',
+                        'registerNombre',
+                        'registerSexo',
+                        'registerNacimiento'
+                    ];
+
                     document.getElementById('registerExpedido').value = data.expedido || '';
                     document.getElementById('registerPaterno').value = data.paterno || '';
                     document.getElementById('registerMaterno').value = data.materno || '';
                     document.getElementById('registerNombre').value = data.nombre || '';
                     document.getElementById('registerSexo').value = data.sexo || '';
                     document.getElementById('registerNacimiento').value = data.nacimiento || '';
+
+                    fieldsToLock.forEach(fieldId => {
+                        const field = document.getElementById(fieldId);
+                        if (field) {
+                            if (field.tagName === 'SELECT') {
+                                field.disabled = true;
+                            } else {
+                                field.readOnly = true;
+                            }
+                            field.style.cursor = 'not-allowed';
+                        }
+                    });
                 })
                 .catch(error => {
-                    console.log('No se encontró el CI o error en la búsqueda');
+                    console.log('No se encontró el CI o error en la búsqueda:', error.message);
+                    limpiarYRestaurarCampos();
                 });
+        } else {
+            limpiarYRestaurarCampos();
         }
     });
-    </script>
-    <script>
-    function limpiarFormulario(formElement) {
-        formElement.reset();
 
-        const selects = formElement.querySelectorAll("select");
-        selects.forEach(select => select.selectedIndex = 0);
+    function limpiarYRestaurarCampos() {
+
+        const mensajeCi = document.getElementById('mensaje-ci');
+        mensajeCi.classList.add('d-none');
+        mensajeCi.textContent = '';
+
+        const fieldsToLock = [
+            'registerExpedido',
+            'registerPaterno',
+            'registerMaterno',
+            'registerNombre',
+            'registerSexo',
+            'registerNacimiento'
+        ];
+
+        fieldsToLock.forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            if (field) {
+                field.value = '';
+                if (field.tagName === 'SELECT') {
+                    field.disabled = false;
+                } else {
+                    field.readOnly = false;
+                }
+                field.style.cursor = '';
+            }
+        });
     }
     </script>
 {% endblock %}
