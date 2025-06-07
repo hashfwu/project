@@ -7,31 +7,6 @@ from routes.query_routes import query_bp
 app = Flask(__name__)
 app.secret_key = 'clave-super-secreta-123' # Esto para que flash funcione
 
-NAVBARS = {
-    'afectado-narvar': {
-        'title': 'Inicio',
-        'items_exists': True,
-        'items': {
-            'editar_datos': {
-                'title': 'Editar datos',
-                'url': None,
-                'subitems_exist': True,
-                'subitems':
-                    {
-                        'eliminar':{
-                            'title': 'Eliminar mis datos',
-                            'url': 'home'
-                        },
-                        'editar':{
-                            'title': 'Editar mis datos',
-                            'url': 'home'
-                        }
-                    }
-                }
-        },
-    }
-}
-
 app.register_blueprint(root_bp, url_prefix='/')
 # app.register_blueprint(query_bp, url_prefix='/')
 app.register_blueprint(afectado_bp, url_prefix='/afectado')
