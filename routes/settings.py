@@ -1,14 +1,18 @@
 NAVBARS = {
+    'empty-root': {
+        'title': 'Inicio',
+        'items_exists': False
+    },
     'empty-afectado': {
         'title': 'Afectado',
         'items_exists': False
     },
-    'afectado-narvar': {
+    'perfil-afectado': {
         'title': 'Afectado',
         'items_exists': True,
         'items': {
             'editar_datos': {
-                'title': 'Editar datos',
+                'title': 'Mis datos',
                 'url': None,
                 'subitems_exist': True,
                 'subitems':
@@ -18,7 +22,7 @@ NAVBARS = {
                             'url': 'root.home'
                         },
                         'editar': {
-                            'title': 'Editar mis datos',
+                            'title': 'Ver y editar mis datos',
                             'url': 'root.home'
                         }
                     }

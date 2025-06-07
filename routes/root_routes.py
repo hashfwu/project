@@ -6,4 +6,4 @@ root_bp = Blueprint('root', __name__)
 
 @root_bp.route('/')
 def home():
-    return render_template('home.html', nav_secction='afectado-narvar', NAVBARS=NAVBARS)
+    return render_template('home.html', nav_secction='emtpy-root', NAVBARS=NAVBARS)
