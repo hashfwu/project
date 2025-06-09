@@ -51,12 +51,12 @@ def perfil(id_afectado):
         if not perdidas:
             flash(f'No se encontraron datos de pérdidas para el ID {id_afectado}.', 'info')
 
-        return render_template('afectado/perfil.html', datos_perdidas=perdidas, id_afectado=id_afectado, nav_secction='perfil-afectado', NAVBARS=NAVBARS)
+        return render_template('afectado/perfil.html', datos_perdidas=perdidas, id_afectado=id_afectado, nav_secction='empty-afectado', NAVBARS=NAVBARS)
     except Exception as e:
         conn.rollback()
         print(f"Error al ejecutar consulta: {str(e)}")
         flash(f"Error al cargar el perfil: {str(e)}", 'error')
-        return redirect(url_for('afectado.home'))
+        return render_template('afectado/home.html', nav_secction='home-afectado', NAVBARS=NAVBARS)
     finally:
         if conn:
             conn.close()
@@ -155,7 +155,7 @@ def register():
                 flash(f'Se registró exitosamente al afectado con ID: {int(new_afectado_id)}.', 'success')
             else:
                 flash('Se registró exitosamente (ID no disponible).', 'success')
-            return redirect(url_for('afectado.home'))
+            return render_template('afectado/home.html', nav_secction='home-afectado', NAVBARS=NAVBARS)
         except Exception as e:
             conn.rollback()
             return f"Error al registrar: {str(e)}"
@@ -179,9 +179,6 @@ def register():
         R_circulo = 30
         centro_circulo_x = 40
         centro_circulo_y = 54
-
-        mapear_rango_lat_norm = lambda valor: (valor - min_orig_lat) / (max_orig_lat - min_orig_lat)
-        mapear_rango_lon_norm = lambda valor: (valor - min_orig_lon) / (max_orig_lon - min_orig_lon)      
 
         AREAS = dict()
         for r in result:
@@ -245,16 +242,16 @@ def delete(id_afectado):
     cursor = conn.cursor()
     try:
         cursor.execute(
-            "SELECT * FROM perdidas_sf(?)", (id_afectado,)
+            "EXEC delete_afectado_sp ?", (id_afectado,)
         )
+        conn.commit()
         flash(f'Se elimino usuario', 'success')
-
-        return render_template('afectado/perfil.html', datos_perdidas=perdidas, id_afectado=id_afectado, nav_secction='perfil-afectado', NAVBARS=NAVBARS)
+        return render_template('afectado/home.html', nav_secction='home-afectado', NAVBARS=NAVBARS)
     except Exception as e:
         conn.rollback()
         print(f"Error al ejecutar consulta: {str(e)}")
         flash(f"Error al cargar el perfil: {str(e)}", 'error')
-        return redirect(url_for('afectado.home'))
+        return render_template('afectado/home.html', nav_secction='home-afectado', NAVBARS=NAVBARS)
     finally:
         if conn:
             conn.close()

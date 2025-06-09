@@ -61,3 +61,27 @@ BEGIN
     END CATCH;
 END;
 GO
+
+CREATE OR ALTER PROCEDURE delete_afectado_sp(
+    @v_id_afectado INT
+)
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        DELETE FROM Bien WHERE Bien.id_afectado = @v_id_afectado;
+        DELETE FROM Afectado WHERE Afectado.id_afectado = @v_id_afectado;
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0
+            ROLLBACK TRANSACTION;
+
+        DECLARE @ErrorMessage NVARCHAR(MAX), @ErrorSeverity INT, @ErrorState INT;        SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE();
+        RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorState);
+
+        THROW;
+    END CATCH;
+END;

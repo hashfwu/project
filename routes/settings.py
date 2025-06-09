@@ -35,7 +35,7 @@ NAVBARS = {
                     {
                         'eliminar': {
                             'title': 'Eliminar mis datos',
-                            'url': 'root.home'
+                            'url': 'afectado.delete',
                         },
                         'editar': {
                             'title': 'Ver y editar mis datos',
