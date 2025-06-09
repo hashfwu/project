@@ -1,0 +1,20 @@
+{% extends "layout/layout_1.html" %}
+
+{% block title %}Afectado{% endblock %}
+
+{% block content %}
+<h3 class="mb-4 text-center">Iniciar Sesión</h3>
+<form action="{{ url_for('afectado.login') }}" method="post"> {# Agregado action y method #}
+    <div class="mb-3">
+        <label for="loginEmail" class="form-label">Correo Electrónico</label>
+        <input type="email" class="form-control" id="loginEmail" name="email" aria-describedby="emailHelp" required> {# Agregado name="email" #}
+    </div>
+    <div class="mb-3">
+        <label for="loginPassword" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" id="loginPassword" name="password" required> {# Agregado name="password" #}
+    </div>
+    <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary">Entrar</button>
+    </div>
+</form>
+{% endblock %}

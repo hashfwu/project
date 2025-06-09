@@ -1,0 +1,255 @@
+{% extends "layout/layout_1.html" %}
+
+{% block title %}Afectado{% endblock %}
+
+{% block hero %}
+
+    <section class="bg-dark text-white py-5">
+      <div class="container py-4">
+        <div class="text-center">
+          <h2 class="display-5 fw-bold mb-4">Reporte sus perdidas en cualquier momento</h2>
+          <p class="lead mb-5">Nuestro sistema le permite realizar reportes de perdidas según el área al que pertenece</p>
+        </div>
+      </div>
+    </section>
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .area-btn {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        width: 50px;
+        height: 50px;
+    }
+</style>
+
+<h3 class="mb-4 text-center">Registrarse</h3>
+
+<div id="mensaje-ci" class="alert alert-success d-none" role="alert"></div>
+
+<form action="{{ url_for('afectado.register') }}" method="post" class="needs-validation" novalidate>
+    <div class="mb-3">
+        <label for="registerCi" class="form-label">CI</label>
+        <input type="text" class="form-control" id="registerCi" name="ci" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="registerExpedido" class="form-label">Expedido</label>
+        <select class="form-select" id="registerExpedido" name="expedido" required>
+            <option value="" disabled selected>Seleccione...</option>
+            <option value="LP">LP</option>
+            <option value="SCZ">SCZ</option>
+            <option value="CBBA">CBBA</option>
+            <option value="OR">OR</option>
+            <option value="PT">PT</option>
+            <option value="CH">CH</option>
+            <option value="TJA">TJA</option>
+            <option value="BE">BE</option>
+            <option value="PD">PD</option>
+            <option value="EX">EX</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="registerPaterno" class="form-label">Apellido Paterno</label>
+        <input type="text" class="form-control" id="registerPaterno" name="paterno" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="registerMaterno" class="form-label">Apellido Materno</label>
+        <input type="text" class="form-control" id="registerMaterno" name="materno" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="registerNombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="registerNombre" name="nombre" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="registerSexo" class="form-label">Sexo</label>
+        <select class="form-select" id="registerSexo" name="sexo" required>
+            <option value="" disabled selected>Seleccione...</option>
+            <option value="masculino">Masculino</option>
+            <option value="femenino">Femenino</option>
+            <option value="otro">Otro</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="registerNacimiento" class="form-label">Nacimiento</label>
+        <input type="date" class="form-control" id="registerNacimiento" name="nacimiento" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="registerTelefono" class="form-label">Teléfono</label>
+        <input type="tel" class="form-control" id="registerTelefono" name="telefono" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="registerEmail" class="form-label">Correo Electrónico</label>
+        <input type="email" class="form-control" id="registerEmail" name="email" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="registerUbicacion" class="form-label">Ubicación del domicilio</label>
+        <input type="text" class="form-control" id="registerUbicacion" name="ubicacion" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="registerCondicion" class="form-label">Condición del afectado</label>
+        <input type="text" class="form-control" id="registerCondicion" name="condicion" required>
+    </div>
+
+    <div class="mb-3">
+        
+        <label for="registerCondicion" class="form-label">Zona a la que pertenece el afectado</label>
+        <input type="hidden" id="registerIdArea" name="id_area" required>
+        
+        <div class="position-relative w-100 border border-secondary rounded my-3" style="aspect-ratio: 1 / 1; overflow: hidden;">
+            <img src="{{ url_for('static', filename='img/mapa_bolivia.jpg') }}" alt="Mapa Interactivo" style="width: 100%; height: 100%; object-fit: cover;">
+            <div class="position-absolute bottom-0 start-0 end-0 bg-dark text-white p-2 text-center small">
+                Haga clic en un área para seleccionarla
+            </div>
+
+            {% for id, area in areas.items() %}
+            <button type="button"
+                    class="area-btn btn btn-primary btn-sm rounded-circle d-flex align-items-center justify-content-center"
+                    style="left: {{ area.x }}%; top: {{ area.y }}%; width: 2.5rem; height: 2.5rem;"
+                    onclick="selectArea({{ id }}, '{{ area.coordenadas }}', '{{ area.municipio }}', '{{ area.departamento }}', '{{ area.descripcion }}', '{{ area.tipovegetacion }}')"
+                    data-bs-toggle="tooltip"
+                    title="{{ id }} ({{ area.municipio }})">
+                {{ id }}
+            </button>
+            {% endfor %}
+        </div>
+        
+        <!-- Información del área seleccionada -->
+        <div class="card mt-3 d-none" id="selectedAreaInfo">
+            <div class="card-body">
+                <h5 class="card-title">Área Seleccionada</h5>
+                <p class="card-text mb-1" id="municipio"></p>
+                <p class="card-text mb-1" id="departamento"></p>
+                <p class="card-text text-muted small" id="coordenadas"></p>
+                <p class="card-text text-muted small" id="descripcion"></p>
+                <p class="card-text text-muted small" id="tipovegetacion"></p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="d-grid">
+        <button type="submit" class="btn btn-success">Registrar</button>
+    </div>
+    <div class="d-grid mt-2">
+        <button type="button" class="btn btn-secondary" onclick="limpiarFormulario(this.form)">Limpiar</button>
+    </div>
+
+</form>
+
+<script>
+    
+    function selectArea(id, coordenadas, municipio, departamento, descripcion, tipovegetacion) {
+        document.getElementById('registerIdArea').value = id;
+        document.getElementById('municipio').textContent = municipio;
+        document.getElementById('departamento').textContent = departamento;
+        document.getElementById('descripcion').textContent = descripcion;
+        document.getElementById('tipovegetacion').textContent = tipovegetacion;
+        document.getElementById('coordenadas').textContent = `Coordenadas: ${coordenadas}`;
+        document.getElementById('selectedAreaInfo').classList.remove('d-none');
+        
+        // Resetear todos los botones a su estado original (btn-primary)
+        document.querySelectorAll('.area-btn').forEach(btn => {
+            btn.classList.remove('btn-success');
+            btn.classList.add('btn-primary');
+        });
+        
+        // Aplicar estilo de selección (btn-success) solo al botón clickeado
+        event.target.classList.remove('btn-primary');
+        event.target.classList.add('btn-success');
+    }
+    
+    document.getElementById('registerCi').addEventListener('blur', function () {
+        const ci = this.value;
+
+        if (ci) {
+            fetch(`{{ url_for('afectado.buscar_ci') }}?ci=${ci}`)
+                .then(response => {
+                    if (!response.ok) {
+                        limpiarYRestaurarCampos();
+                        throw new Error('No encontrado');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const mensajeCi = document.getElementById('mensaje-ci');
+                    mensajeCi.textContent = 'Se encontraron datos que coinciden con su carnet. Puede editarlos luego de iniciar sesion.';
+                    mensajeCi.classList.remove('d-none');
+                    mensajeCi.classList.add('alert-success');
+
+                    const fieldsToHide = [
+                        'registerExpedido',
+                        'registerPaterno',
+                        'registerMaterno',
+                        'registerNombre',
+                        'registerSexo',
+                        'registerNacimiento'
+                    ];
+
+                    fieldsToHide.forEach(fieldId => {
+                        const field = document.getElementById(fieldId);
+                        if (field) {
+                            const hidden = document.createElement('input');
+                            hidden.type = 'hidden';
+                            hidden.name = field.name;
+                            hidden.value = data[fieldId.replace('register', '').toLowerCase()] || '';
+                            field.form.appendChild(hidden);
+                            
+                            field.value = '';
+                            if (field.parentNode) {
+                                field.parentNode.style.display = 'none';
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.log('No se encontró el CI o error en la búsqueda:', error.message);
+                    limpiarYRestaurarCampos();
+                });
+        } else {
+            limpiarYRestaurarCampos();
+        }
+    });
+
+    function limpiarYRestaurarCampos() {
+        const mensajeCi = document.getElementById('mensaje-ci');
+        mensajeCi.classList.add('d-none');
+        mensajeCi.textContent = '';
+
+        const fieldsToHide = [
+            'registerExpedido',
+            'registerPaterno',
+            'registerMaterno',
+            'registerNombre',
+            'registerSexo',
+            'registerNacimiento'
+        ];
+
+        // Eliminar inputs hidden, limpiar y mostrar campos originales
+        fieldsToHide.forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            if (field) {
+                const hiddenInputs = field.form.querySelectorAll(`input[type="hidden"][name="${field.name}"]`);
+                hiddenInputs.forEach(input => input.remove());
+                
+                field.value = '';
+                
+                if (field.parentNode) {
+                    field.parentNode.style.display = '';
+                }
+            }
+        });
+    }
+</script>
+{% endblock %}
