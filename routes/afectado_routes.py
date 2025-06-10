@@ -5,6 +5,59 @@ import math
 
 afectado_bp = Blueprint('afectado', __name__)
 
+def get_areas(all=False):
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+        if all:
+            cursor.execute(
+                "SELECT TOP 50 * FROM area_afectada_municipio_departamento_vw"
+            )
+        else:
+            cursor.execute(
+                "SELECT TOP 50 * FROM area_afectada_municipio_departamento_actual_vw"
+            )
+        result = cursor.fetchall()
+
+        AREAS = dict()
+        for r in result:
+            lat, lon = map(float, r[1].split(', '))
+
+            min_orig_lat = -22.0
+            max_orig_lat = -9.0
+            min_orig_lon = -69.0
+            max_orig_lon = -57.0
+
+            R_circulo = 30
+            centro_circulo_x = 40
+            centro_circulo_y = 54
+            lat_norm = (lat - min_orig_lat) / (max_orig_lat - min_orig_lat)
+            lon_norm = (lon - min_orig_lon) / (max_orig_lon - min_orig_lon)
+
+            theta = lon_norm * 2 * math.pi
+            radio = lat_norm * R_circulo
+
+            x_circulo = centro_circulo_x + radio * math.cos(theta)
+            y_circulo = centro_circulo_y + radio * math.sin(theta)
+
+            AREAS[r[0]] = {
+                # "coordenadas": r[1],
+                "coordenadas": r[1],
+                "municipio": r[2],
+                "departamento": r[3],
+                "descripcion": r[4],
+                "tipo_vegetacion": r[5],
+                "x": x_circulo,
+                "y": y_circulo
+            }
+
+        return AREAS
+    except Exception as e:
+        conn.rollback()
+        return None
+    finally:
+        conn.close()
+
 @afectado_bp.route('/')
 def home():
     return render_template('afectado/home.html', nav_secction='home-afectado', NAVBARS=NAVBARS)
@@ -171,38 +224,7 @@ def register():
         )
         result = cursor.fetchall()
 
-        min_orig_lat = -22.0
-        max_orig_lat = -9.0
-        min_orig_lon = -69.0
-        max_orig_lon = -57.0
-
-        R_circulo = 30
-        centro_circulo_x = 40
-        centro_circulo_y = 54
-
-        AREAS = dict()
-        for r in result:
-            lat, lon = map(float, r[1].split(', '))
-
-            lat_norm = (lat - min_orig_lat) / (max_orig_lat - min_orig_lat)
-            lon_norm = (lon - min_orig_lon) / (max_orig_lon - min_orig_lon)
-
-            theta = lon_norm * 2 * math.pi
-            radio = lat_norm * R_circulo
-
-            x_circulo = centro_circulo_x + radio * math.cos(theta)
-            y_circulo = centro_circulo_y + radio * math.sin(theta)
-
-            AREAS[r[0]] = {
-                # "coordenadas": r[1],
-                "coordenadas": r[1],
-                "municipio": r[2],
-                "departamento": r[3],
-                "descripcion": r[4],
-                "tipo_vegetacion": r[5],
-                "x": x_circulo,
-                "y": y_circulo
-            }
+        AREAS = get_areas()
 
         return render_template('afectado/registrar.html', nav_secction='empty-afectado', NAVBARS=NAVBARS, areas=AREAS)
     except Exception as e:
@@ -254,4 +276,69 @@ def delete(id_afectado):
         return render_template('afectado/home.html', nav_secction='home-afectado', NAVBARS=NAVBARS)
     finally:
         if conn:
+            conn.close()
+            
+@afectado_bp.route('/editar/<int:id_afectado>', methods=['GET', 'POST'])
+def edit(id_afectado):
+    if request.method == 'POST':
+        conn = get_connection()
+        cursor = conn.cursor()
+        try:
+            nuevo_ci_persona = request.form.get('ci_persona')
+            nuevo_expedido_persona = request.form.get('expedido_persona')
+            nuevo_paterno_persona = request.form.get('paterno_persona')
+            nuevo_materno_persona = request.form.get('materno_persona')
+            nuevo_nombre_persona = request.form.get('nombre_persona')
+            nuevo_sexo_persona = request.form.get('sexo_persona')
+            nuevo_fecha_nacimiento_persona = request.form.get('fecha_nacimiento_persona')
+            nuevo_id_area_afectado = request.form.get('id_area_afectado')
+            nuevo_telefono_afectado = request.form.get('telefono_afectado')
+            nuevo_email_afectado = request.form.get('email_afectado')
+            nuevo_ubicacion_domicilio_afectado = request.form.get('ubicacion_domicilio_afectado')
+            nuevo_condicion_afectado = request.form.get('condicion_afectado')
+            cursor.execute(
+                "EXEC update_afectado_sp "
+                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?",
+                (
+                    id_afectado,
+                    nuevo_ci_persona,
+                    nuevo_expedido_persona,
+                    nuevo_paterno_persona,
+                    nuevo_materno_persona,
+                    nuevo_nombre_persona,
+                    nuevo_sexo_persona,
+                    nuevo_fecha_nacimiento_persona,
+                    nuevo_id_area_afectado,
+                    nuevo_telefono_afectado,
+                    nuevo_email_afectado,
+                    nuevo_ubicacion_domicilio_afectado,
+                    nuevo_condicion_afectado
+                )
+            )
+            conn.commit()
+            flash('Registro actualizado exitosamente.', 'success')
+            return redirect(url_for('afectado.perfil', id_afectado=id_afectado))
+        except Exception as e:
+            conn.rollback()
+            flash(f"Error al editar el registro: {str(e)}", 'error')
+            return redirect(url_for('afectado.perfil', id_afectado=id_afectado))
+        finally:
+            conn.close()
+    else:
+        conn = get_connection()
+        cursor = conn.cursor()
+        
+        AREAS = get_areas(all=True)
+
+        try:
+            cursor.execute(
+                "SELECT * FROM afectado_sf(?)", (id_afectado,)
+            )
+            afectado_row = cursor.fetchone()
+            return render_template('afectado/editar.html', nav_secction='empty-afectado', NAVBARS=NAVBARS, id_afectado=id_afectado, afectado_row=afectado_row, areas=AREAS)
+        except Exception as e:
+            conn.rollback()
+            flash(f"Error al cargar registro: {str(e)}", 'error')
+            return redirect(url_for('afectado.perfil', id_afectado=id_afectado))
+        finally:
             conn.close()

@@ -30,3 +30,29 @@ RETURN
         where Afectado.id_afectado = @v_id_afectado
 );
 GO
+
+CREATE OR ALTER FUNCTION afectado_sf (
+    @v_id_afectado INT
+)
+RETURNS TABLE
+AS
+RETURN
+(
+    SELECT
+        Persona.ci,
+        Persona.expedido,
+        Persona.paterno,
+        Persona.materno,
+        Persona.nombre,
+        Persona.sexo,
+        Persona.fecha_nacimiento,
+        Afectado.id_area,
+        Afectado.telefono,
+        Afectado.email,
+        Afectado.ubicacion_domicilio,
+        Afectado.condicion
+    FROM Persona JOIN Afectado
+    ON Persona.ci = Afectado.ci
+    WHERE Afectado.id_afectado = @v_id_afectado
+);
+GO
